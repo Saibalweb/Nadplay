@@ -10,8 +10,7 @@ import {
   FlatList
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import img from "../../../assets/images/movie_demo.jpeg";
-import { router } from "expo-router";
+import { useRouter } from "expo-router";
 import { getRequest } from "@/hooks/reqBuilder";
 
 const categories = ["Movies", "Tv Series"];
@@ -54,6 +53,7 @@ const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 // ];
 
 export default function Home() {
+  const router = useRouter();
   const [activeCategory, setActiveCategory] = React.useState("Movies");
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
@@ -68,8 +68,6 @@ export default function Home() {
       const fetchMovieUrl = `${process.env.EXPO_PUBLIC_API_URL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=${pageNumber}&sort_by=popularity.desc`;
       const token = process.env.EXPO_PUBLIC_API_KEY;
       const data = await getRequest(fetchMovieUrl, {}, token);
-      console.log(data);
-
       if (data.results.length > 0) {
         setMovies((prevMovies) =>
           pageNumber === 1 ? data.results : [...prevMovies, ...data.results]
@@ -87,22 +85,19 @@ export default function Home() {
   useEffect(() => {
     fetchMovies(1);
   }, []);
-  const rennderMovies = ({ item }) => {
-    console.log('item', item);
-    const imgUrl = `${IMAGE_BASE_URL}${item.poster_path}`;
-    console.log('imgUrl', imgUrl);
+  const rennderMovies = ({ item }: { item: any }) => {
     return(
     <TouchableOpacity
       key={item.id}
       className="w-[46%] mb-4 mx-2"
-      onPress={() => router.push("moviedetails")}
+      onPress={() => router.push({ pathname: '/moviedetails', params: { id: item.id } })}
     >
       <Image
-        source={{
-          uri: `${IMAGE_BASE_URL}${item.poster_path}`,
-        }}
-        className="w-full h-56 rounded-lg"
-        resizeMode="cover"
+      source={{
+        uri: `${IMAGE_BASE_URL}${item.poster_path}`,
+      }}
+      className="w-full h-56 rounded-lg"
+      resizeMode="cover"
       />
       <Text className="text-white mt-2">{item.title}</Text>
       <Text className="text-gray-500">{item.release_date}</Text>

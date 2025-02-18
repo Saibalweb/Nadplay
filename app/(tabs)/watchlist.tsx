@@ -3,47 +3,12 @@ import { View, Text, TouchableOpacity, Image, SafeAreaView, ScrollView } from 'r
 import { ChevronLeftIcon, StarIcon, ClockIcon } from "react-native-heroicons/solid";
 import { TagIcon, CalendarIcon } from "react-native-heroicons/outline";
 import img from '../../assets/images/movie_demo.jpeg'
-
-const watchList = [
-  {
-    id: 1,
-    title: "Spiderman",
-    rating: 9.5,
-    genre: "Action",
-    year: 2019,
-    duration: 139,
-    image: img
-  },
-  {
-    id: 2,
-    title: "Spider-Man: No Way H...",
-    rating: 8.5,
-    genre: "Action",
-    year: 2021,
-    duration: 139,
-    image: img
-  },
-  {
-    id: 4,
-    title: "Spider-Man: No Way H...",
-    rating: 8.5,
-    genre: "Action",
-    year: 2021,
-    duration: 139,
-    image: img
-  },
-  {
-    id: 56,
-    title: "Spider-Man: No Way H...",
-    rating: 8.5,
-    genre: "Action",
-    year: 2021,
-    duration: 139,
-    image: img
-  }
-];
-
+import { useSelector } from 'react-redux';
+import { useRouter } from 'expo-router';
 export default function WatchListScreen({ navigation }) {
+    const router = useRouter();
+  const imgUrl = process.env.EXPO_PUBLIC_Image_URL;
+  const watchlist = useSelector((state) => state.watchlist.watchlist);
   return (
     <SafeAreaView className="bg-[#1a1a1a]" style={{flex:1}}>
       {/* Header */}
@@ -59,14 +24,15 @@ export default function WatchListScreen({ navigation }) {
 
       {/* Movie List */}
       <ScrollView className="flex-1">
-        {watchList.map((movie) => (
+        {watchlist.map((movie) => (
           <TouchableOpacity 
             key={movie.id}
             className="flex-row p-4 border-b border-gray-800"
+            onPress={() => router.push({ pathname: '/moviedetails', params: { id: movie.id } })}
           >
             {/* Movie Poster */}
             <Image
-              source={movie.image}  
+              source={{ uri: `${imgUrl}${movie.poster_path}`}}  
               className="w-32 h-40 rounded-lg"
               resizeMode="cover"
             />
@@ -80,25 +46,25 @@ export default function WatchListScreen({ navigation }) {
               {/* Rating */}
               <View className="flex-row items-center mb-2">
                 <StarIcon size={16} color="#FFD700" />
-                <Text className="text-white ml-1">{movie.rating}</Text>
+                <Text className="text-white ml-1">{movie.vote_average}</Text>
               </View>
 
               {/* Genre */}
               <View className="flex-row items-center mb-2">
                 <TagIcon size={16} color="#666" />
-                <Text className="text-gray-400 ml-1">{movie.genre}</Text>
+                <Text className="text-gray-400 ml-1">{movie.genres[0].name}</Text>
               </View>
 
               {/* Year */}
               <View className="flex-row items-center mb-2">
                 <CalendarIcon size={16} color="#666" />
-                <Text className="text-gray-400 ml-1">{movie.year}</Text>
+                <Text className="text-gray-400 ml-1">{movie.release_date}</Text>
               </View>
 
               {/* Duration */}
               <View className="flex-row items-center">
                 <ClockIcon size={16} color="#666" />
-                <Text className="text-gray-400 ml-1">{movie.duration} minutes</Text>
+                <Text className="text-gray-400 ml-1">{movie.runtime} minutes</Text>
               </View>
             </View>
           </TouchableOpacity>
