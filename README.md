@@ -13,6 +13,7 @@ This is a movie Streaming basic app
 </div>
 
 ## Demo 
+[![Video Title](https://img.youtube.com/vi/qrPx_DzR-Sc/0.jpg)](https://www.youtube.com/shorts/qrPx_DzR-Sc)
 
 ## Learn more
 
