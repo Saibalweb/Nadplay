@@ -8,7 +8,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { TagIcon, CalendarIcon } from "react-native-heroicons/outline";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams, useRouter } from "expo-router";
 import { getRequest } from "@/hooks/reqBuilder";
 import { useDispatch, useSelector } from "react-redux";
 import { addMovieToWatchlist, removeMovieFromWatchlist } from "@/store";
@@ -28,8 +28,10 @@ type movieDetails = {
   vote_average: number;
 }
 export default function MovieDetailScreen({ navigation }) {
+      const router = useRouter();
   const imgUrl = process.env.EXPO_PUBLIC_Image_URL;
   const item = useLocalSearchParams();
+  console.log('item',item)
   const watchlist = useSelector((state) => state.watchlist.watchlist);
   const [activeTab, setActiveTab] = React.useState("About Movie");
   const [bookmark, setBookmark] = React.useState(false);
@@ -49,9 +51,10 @@ export default function MovieDetailScreen({ navigation }) {
 
   const fetchMovieDetails = async () => {
     const movieId = item.id;
-    const movieDetailsUrl = `https://api.themoviedb.org/3/movie/${movieId}`;
+    const movieDetailsUrl = `https://api.themoviedb.org/3/movie/${movieId}?language=en-US`;
     const token = process.env.EXPO_PUBLIC_API_KEY;
     const res = await getRequest(movieDetailsUrl, {}, token);
+    console.log(JSON.stringify(res,null,2));
     if(res?.id == movieId){
       setMovieDetails({
         id: res?.id,
@@ -93,12 +96,12 @@ export default function MovieDetailScreen({ navigation }) {
     const isBookmarked = watchlist.some((movie) => movie.id == item.id);
     setBookmark(isBookmarked);
   }, [watchlist, item.id]);
-
+  console.log(`${imgUrl}${movieDetails.backdrop_path}`)
   return (
     <SafeAreaView className="flex-1 bg-[#1a1a1a] p-2">
       {/* Header */}
       <View className="flex-row items-center justify-between px-4 py-3 absolute top-10 w-full z-10">
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => router.back()}>
           <ChevronLeftIcon size={35} color="white" />
         </TouchableOpacity>
         <TouchableOpacity onPress={bookMarkHandler}>

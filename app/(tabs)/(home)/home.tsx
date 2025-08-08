@@ -68,6 +68,8 @@ export default function Home() {
       const fetchMovieUrl = `${process.env.EXPO_PUBLIC_API_URL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=${pageNumber}&sort_by=popularity.desc`;
       const token = process.env.EXPO_PUBLIC_API_KEY;
       const data = await getRequest(fetchMovieUrl, {}, token);
+    console.log(JSON.stringify(data,null,2));
+
       if (data.results.length > 0) {
         setMovies((prevMovies) =>
           pageNumber === 1 ? data.results : [...prevMovies, ...data.results]
