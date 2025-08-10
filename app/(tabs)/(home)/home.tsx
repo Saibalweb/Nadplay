@@ -2,169 +2,168 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
-  TextInput,
-  ScrollView,
   Image,
+  FlatList,
   TouchableOpacity,
+  ScrollView,
   ActivityIndicator,
-  FlatList
+  ListRenderItem,
 } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Ionicons } from "@expo/vector-icons";
 import { getRequest } from "@/hooks/reqBuilder";
 
-const categories = ["Movies", "Tv Series"];
-
-const API_KEY = "YOUR_API_KEY";
-const BASE_URL = "https://api.themoviedb.org/3";
+// Constants
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
-// const movies = [
-//   {
-//     id: 1,
-//     title: "Soul",
-//     year: "2020",
-//     image: img,
-//   },
-//   {
-//     id: 2,
-//     title: "Knives Out",
-//     year: "2019",
-//     image: img,
-//   },
-//   {
-//     id: 3,
-//     title: "Onward",
-//     year: "2020",
-//     image: img,
-//   },
-//   {
-//     id: 4,
-//     title: "Mulan",
-//     year: "2020",
-//     image: img,
-//   },
-//   {
-//     id: 5,
-//     title: "The Invisible",
-//     year: "2020",
-//     image: img,
-//   },
-// ];
+interface Movie {
+  id: number;
+  title: string;
+  poster_path: string;
+}
 
-export default function Home() {
-  const router = useRouter();
-  const [activeCategory, setActiveCategory] = React.useState("Movies");
-  const [movies, setMovies] = useState([]);
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
+interface Genre {
+  id: number;
+  name: string;
+}
 
-  const fetchMovies = async (pageNumber: number) => {
-    if (!hasMore || loading) return;
+const GENRES: Genre[] = [
+  { id: 28, name: "Action" },
+  { id: 35, name: "Comedy" },
+  { id: 10749, name: "Romance" },
+  { id: 53, name: "Thriller" },
+  { id: 14, name: "Fantasy" },
+];
+
+
+export default function App() {
+  const [moviesByGenre, setMoviesByGenre] = useState<Record<number, Movie[]>>({});
+  const [pageNumbers, setPageNumbers] = useState<Record<number, number>>({});
+  const [hasMoreByGenre, setHasMoreByGenre] = useState<Record<number, boolean>>({});
+  const [loadingByGenre, setLoadingByGenre] = useState<Record<number, boolean>>({});
+
+  const fetchMovies = async (genreId: number, pageNumber: number = 1): Promise<void> => {
+    if (loadingByGenre[genreId] || hasMoreByGenre[genreId] === false) return;
 
     try {
-      setLoading(true);
-      const fetchMovieUrl = `${process.env.EXPO_PUBLIC_API_URL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=${pageNumber}&sort_by=popularity.desc`;
-      const token = process.env.EXPO_PUBLIC_API_KEY;
-      const data = await getRequest(fetchMovieUrl, {}, token);
-    console.log(JSON.stringify(data,null,2));
+      setLoadingByGenre((prev) => ({ ...prev, [genreId]: true }));
 
-      if (data.results.length > 0) {
-        setMovies((prevMovies) =>
-          pageNumber === 1 ? data.results : [...prevMovies, ...data.results]
-        );
-        setHasMore(pageNumber < data.total_pages);
+      const fetchMovieUrl = `${process.env.EXPO_PUBLIC_API_URL}/discover/movie?with_genres=${genreId}&include_adult=false&include_video=false&language=en-US&page=${pageNumber}&sort_by=popularity.desc`;
+      const token = process.env.EXPO_PUBLIC_API_KEY || "";
+
+      const data = await getRequest(fetchMovieUrl, {}, token);
+
+      if (data.results?.length > 0) {
+        const limitedResults: Movie[] = data.results.slice(0, 10); // limit to 10 per fetch
+        setMoviesByGenre((prev) => ({
+          ...prev,
+          [genreId]:
+            pageNumber === 1
+              ? limitedResults
+              : [...(prev[genreId] || []), ...limitedResults],
+        }));
+
+        setPageNumbers((prev) => ({ ...prev, [genreId]: pageNumber }));
+        setHasMoreByGenre((prev) => ({ ...prev, [genreId]: pageNumber < data.total_pages }));
       } else {
-        setHasMore(false);
+        setHasMoreByGenre((prev) => ({ ...prev, [genreId]: false }));
       }
     } catch (error) {
-      console.error("Error fetching movies:", error);
+      console.error(`Error fetching movies for genre ${genreId}:`, error);
     } finally {
-      setLoading(false);
+      setLoadingByGenre((prev) => ({ ...prev, [genreId]: false }));
     }
   };
+
   useEffect(() => {
-    fetchMovies(1);
+    GENRES.forEach((genre) => {
+      fetchMovies(genre.id, 1);
+    });
   }, []);
-  const rennderMovies = ({ item }: { item: any }) => {
-    return(
+  const renderMovieCard: ListRenderItem<Movie> = ({ item }) => (
     <TouchableOpacity
-      key={item.id}
-      className="w-[46%] mb-4 mx-2"
-      onPress={() => router.push({ pathname: '/moviedetails', params: { id: item.id } })}
+      onPress={() => console.log("Clicked:", item.title)}
+      className="mr-4 w-36"
     >
       <Image
-      source={{
-        uri: `${IMAGE_BASE_URL}${item.poster_path}`,
-      }}
-      className="w-full h-56 rounded-lg"
-      resizeMode="cover"
+        source={{ uri: `${IMAGE_BASE_URL}${item.poster_path}` }}
+        className="w-36 h-52 rounded-lg"
       />
-      <Text className="text-white mt-2">{item.title}</Text>
-      <Text className="text-gray-500">{item.release_date}</Text>
+      <Text className="text-white mt-1 text-lg" numberOfLines={2}>
+        {item.title}
+      </Text>
     </TouchableOpacity>
-    )
-  };
-  const renderLoader = () => {
-    if (!loading) return null;
+  );
+
+  const renderSection = (title: string, genreId: number) => {
+    const movies = moviesByGenre[genreId] || [];
+    const isLoading = loadingByGenre[genreId];
+
     return (
-      <View className="items-center justify-center my-4">
-        <ActivityIndicator size="large" color="#0000ff" />
+      <View className="mt-6">
+        <Text className="text-white text-xl font-semibold mb-3">{title}</Text>
+        {movies.length === 0 && isLoading ? (
+          <ActivityIndicator size="small" color="#fff" />
+        ) : (
+          <FlatList
+            horizontal
+            data={movies}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={renderMovieCard}
+            showsHorizontalScrollIndicator={false}
+            onEndReached={() => fetchMovies(genreId, (pageNumbers[genreId] || 1) + 1)}
+            onEndReachedThreshold={0.5}
+            ListFooterComponent={
+              isLoading ? (
+                <View className="justify-center items-center px-2">
+                  <ActivityIndicator size="small" color="#fff" />
+                </View>
+              ) : null
+            }
+          />
+        )}
       </View>
     );
   };
 
-  const loadMoreMovies = () => {
-    if (!loading && hasMore) {
-      const nextPage = page + 1;
-      setPage(nextPage);
-      fetchMovies(nextPage);
-    }
-  };
   return (
-    <View className="flex-1 bg-[#121212] px-4 py-4 pt-12">
-      {/* Header */}
-      <Text className="text-white text-3xl font-semibold my-4 mx-2">
-        Find Movies, Tv series,{"\n"}and more..
-      </Text>
-
-      {/* Search Bar */}
-      {/* <View className="flex-row items-center  bg-[#1f1f1f] rounded-lg px-4 py-2 my-3 mx-2">
-        <MaterialCommunityIcons size={20} color="#666" name='magnify' />
-        <TextInput
-          placeholder="Sherlock Holmes"
-          placeholderTextColor="#666"
-          className="flex-1  text-white text-xl items-center"
-        />
-      </View> */}
-
-      {/* Categories */}
-      <View className="mb-6 mx-4 flex-row">
-        {categories.map((category) => (
+    <SafeAreaView className="flex-1 bg-gray-900 px-4">
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {/* Coming Soon */}
+        <Text className="text-white text-3xl font-bold mb-3 mt-2">Coming Soon</Text>
+        <View className="relative">
+          <Image
+            source={{ uri: "https://m.media-amazon.com/images/I/71niXI3lxlL._AC_SL1024_.jpg" }}
+            className="w-full h-48 rounded-lg"
+          />
           <TouchableOpacity
-            key={category}
-            onPress={() => setActiveCategory(category)}
-            className="mr-8"
+            onPress={() => console.log("Play trailer")}
+            className="absolute top-1/2 left-1/2 -ml-5 -mt-5 bg-orange-500 w-10 h-10 rounded-full items-center justify-center"
           >
-            <Text className="text-white text-xl">{category}</Text>
-            {activeCategory === category && (
-              <View className="h-0.5 bg-red-500 mt-1" />
-            )}
+            <Ionicons name="play" size={20} color="white" />
           </TouchableOpacity>
-        ))}
-      </View>
+        </View>
 
-      {/* Movie Grid */}
-      <FlatList
-        data={movies}
-        renderItem={rennderMovies}
-        keyExtractor={(item) => item.id.toString()}
-        onEndReached={loadMoreMovies}
-        onEndReachedThreshold={0.1}
-        ListFooterComponent={renderLoader}
-        numColumns={2}
-      />
-    </View>
+        {/* Genres */}
+        <View className="flex-row flex-wrap mt-3">
+          {GENRES.map((genre) => (
+            <TouchableOpacity
+              key={genre.id}
+              onPress={() => console.log("Clicked genre:", genre.name)}
+              className="bg-gray-700 px-3 py-1 rounded-full mr-2 mt-2"
+            >
+              <Text className="text-white text-sm">{genre.name}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+
+        {/* Dynamic Sections */}
+        {renderSection("Now Showing (Action)", 28)}
+        {renderSection("Comedy Movies", 35)}
+        {renderSection("Romance Movies", 10749)}
+        {renderSection("Thriller Movies", 53)}
+        {renderSection("Fantasy Movies", 14)}
+      </ScrollView>
+    </SafeAreaView>
   );
 }

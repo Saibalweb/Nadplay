@@ -31,7 +31,6 @@ export default function MovieDetailScreen({ navigation }) {
       const router = useRouter();
   const imgUrl = process.env.EXPO_PUBLIC_Image_URL;
   const item = useLocalSearchParams();
-  console.log('item',item)
   const watchlist = useSelector((state) => state.watchlist.watchlist);
   const [activeTab, setActiveTab] = React.useState("About Movie");
   const [bookmark, setBookmark] = React.useState(false);
@@ -54,7 +53,6 @@ export default function MovieDetailScreen({ navigation }) {
     const movieDetailsUrl = `https://api.themoviedb.org/3/movie/${movieId}?language=en-US`;
     const token = process.env.EXPO_PUBLIC_API_KEY;
     const res = await getRequest(movieDetailsUrl, {}, token);
-    console.log(JSON.stringify(res,null,2));
     if(res?.id == movieId){
       setMovieDetails({
         id: res?.id,
@@ -96,7 +94,6 @@ export default function MovieDetailScreen({ navigation }) {
     const isBookmarked = watchlist.some((movie) => movie.id == item.id);
     setBookmark(isBookmarked);
   }, [watchlist, item.id]);
-  console.log(`${imgUrl}${movieDetails.backdrop_path}`)
   return (
     <SafeAreaView className="flex-1 bg-[#1a1a1a] p-2">
       {/* Header */}
