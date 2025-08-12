@@ -1,19 +1,19 @@
-## NadPlay App OverView
-This is a movie Streaming basic app
+# 🎬 Nadplay
 
-## Built With
-<div>
-   <img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E" alt="js" />
-   <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
-  <img src="https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt='react-native'/> 
-  <img src="https://img.shields.io/badge/Expo-1B1F23?style=for-the-badge&logo=expo&logoColor=white" alt='expo' />
-  <img src="https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white" alt='redux'/> 
-  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt='tailwind'/> 
+Nadplay is a React Native movie app that lets users explore and discover movies by genre, view details, and enjoy a smooth, mobile-first movie browsing experience. *(Live streaming functionality coming soon!)*
 
-</div>
+## ✨ Features
+- 📌 **Browse Movies by Genre** – Select your favorite genres and explore relevant movies.
+- 🔍 **Movie Search & Details** – View cast, synopsis, ratings, and posters.
+- ⚡ **Fast & Responsive UI** – Optimized for smooth navigation and quick loading.
+- 📱 **Cross-Platform Support** – Works on both Android and iOS.
+- 🚀 **Streaming (Coming Soon)** – Planned live streaming feature for real-time viewing.
 
-## Demo 
-[![Video Title](https://img.youtube.com/vi/qrPx_DzR-Sc/0.jpg)](https://www.youtube.com/shorts/qrPx_DzR-Sc)
+## 🛠️ Tech Stack
+- **Frontend:** React Native, JavaScript/TypeScript
+- **API:** [The Movie Database (TMDb)](https://www.themoviedb.org/) API
+- **UI Styling:** React Native Stylesheet / Tailwind RN
+
 
 ## Learn more
 
