@@ -1,3 +1,4 @@
+![Nadplay-cover](https://raw.githubusercontent.com/Saibalweb/Nadplay/master/ReadMe_assets/NadPlay_cover.png)
 # 🎬 Nadplay
 
 Nadplay is a React Native movie app that lets users explore and discover movies by genre, view details, and enjoy a smooth, mobile-first movie browsing experience. *(Live streaming functionality coming soon!)*
