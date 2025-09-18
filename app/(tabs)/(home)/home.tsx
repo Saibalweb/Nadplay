@@ -13,7 +13,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { getRequest } from "@/hooks/reqBuilder";
 
-// Constants
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
 interface Movie {
