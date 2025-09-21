@@ -21,18 +21,18 @@ interface Movie {
   poster_path: string;
 }
 
-interface Genre {
-  id: number;
-  name: string;
-}
+// interface Genre {
+//   id: number;
+//   name: string;
+// }
 
-const GENRES: Genre[] = [
-  { id: 28, name: "Action" },
-  { id: 35, name: "Comedy" },
-  { id: 10749, name: "Romance" },
-  { id: 53, name: "Thriller" },
-  { id: 14, name: "Fantasy" },
-];
+// const GENRES: Genre[] = [
+//   { id: 28, name: "Action" },
+//   { id: 35, name: "Comedy" },
+//   { id: 10749, name: "Romance" },
+//   { id: 53, name: "Thriller" },
+//   { id: 14, name: "Fantasy" },
+// ];
 
 
 export default function App() {
