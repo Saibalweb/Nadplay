@@ -107,17 +107,14 @@ export default function MovieDetailScreen({ navigation }) {
       </View>
 
       <ScrollView className="flex-1">
-        {/* Movie Banner */}
         <View className="h-80 relative">
           <Image
             source={{ uri: `${imgUrl}${movieDetails.backdrop_path}`}}
             className="w-full h-full"
             resizeMode="cover"
           />
-          {/* Gradient Overlay */}
           <View className="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-[#1a1a1a] to-transparent" />
 
-          {/* Movie Thumbnail */}
           <View className="absolute top-60 left-4 flex-row items-end">
             <Image
               source={{ uri: `${imgUrl}${movieDetails.poster_path}`}}
