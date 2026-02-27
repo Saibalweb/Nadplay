@@ -11,7 +11,7 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { router, useLocalSearchParams, useRouter } from "expo-router";
 import { getRequest } from "@/hooks/reqBuilder";
 import { useDispatch, useSelector } from "react-redux";
-import { addMovieToWatchlist, removeMovieFromWatchlist } from "@/store";
+import { addMovieToWatchlist, removeMovieFromWatchlist, RootState } from "@/store";
 
 const tabs = ["About Movie", "Reviews", "Cast"];
 type movieDetails = {
@@ -31,7 +31,7 @@ export default function MovieDetailScreen({ navigation }) {
       const router = useRouter();
   const imgUrl = process.env.EXPO_PUBLIC_Image_URL;
   const item = useLocalSearchParams();
-  const watchlist = useSelector((state) => state.watchlist.watchlist);
+  const watchlist = useSelector((state: RootState) => state.watchlist.watchlist);
   const [activeTab, setActiveTab] = React.useState("About Movie");
   const [bookmark, setBookmark] = React.useState(false);
   const [movieDetails, setMovieDetails] = React.useState<movieDetails>({

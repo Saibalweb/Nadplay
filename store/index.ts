@@ -1,5 +1,5 @@
 import {configureStore,createSlice} from '@reduxjs/toolkit';
-interface watchlistType{
+export interface watchlistType{
     id: number;
   adult: boolean;
   poster_path: string;
@@ -9,7 +9,7 @@ interface watchlistType{
   title: string;
   vote_average: number;
 }
-const initialWatclistState: { watchlist: watchlistType[], watchlistCount: number } = {
+ const initialWatclistState: { watchlist: watchlistType[], watchlistCount: number } = {
     watchlist: [],
     watchlistCount: 0
 }
@@ -32,4 +32,9 @@ export const store = configureStore({
         watchlist: watchlistSlice.reducer
     }
 });
+
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
 export const { addMovieToWatchlist, removeMovieFromWatchlist } = watchlistSlice.actions;
