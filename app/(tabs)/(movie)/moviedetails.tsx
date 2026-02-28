@@ -89,11 +89,11 @@ export default function MovieDetailScreen({ navigation }) {
   useEffect(()=>{
     fetchMovieDetails();
   },[]);
-  useEffect(() => {
-    // Check if the movie is already in the watchlist
-    const isBookmarked = watchlist.some((movie) => movie.id == item.id);
-    setBookmark(isBookmarked);
-  }, [watchlist, item.id]);
+  // useEffect(() => {
+  //   // Check if the movie is already in the watchlist
+  //   const isBookmarked = watchlist.some((movie) => movie.id == item.id);
+  //   setBookmark(isBookmarked);
+  // }, [watchlist, item.id]);
   return (
     <SafeAreaView className="flex-1 bg-[#1a1a1a] p-2">
       {/* Header */}
