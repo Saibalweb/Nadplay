@@ -91,7 +91,7 @@ export default function Movie() {
     <TouchableOpacity
       key={item.id}
       className="w-[46%] mb-4 mx-2"
-      onPress={() => router.push({ pathname: '/moviedetails', params: { id: item.id } })}
+      onPress={() => router.push({ pathname: `/watch/${item.id}`, params: { id: item.id } })}
     >
       <Image
       source={{

@@ -42,6 +42,13 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <Feather size={28} name="bookmark" color={color} />,
         }}
       />
+      <Tabs.Screen
+        name="watch/[id]"
+        options={{
+          href: null,
+          tabBarStyle: { display: 'none' },
+        }}
+      />
     </Tabs>
   );
 }
