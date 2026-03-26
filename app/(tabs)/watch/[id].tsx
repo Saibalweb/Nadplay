@@ -9,14 +9,13 @@ const VideoPlayerLandscape = () => {
   const { id } = useLocalSearchParams<{ id: string }>()
   const router = useRouter()
   const [isPlaying, setIsPlaying] = useState(false)
-  const [currentTime, setCurrentTime] = useState(42.3) // in minutes (42:18)
-  const [totalTime, setTotalTime] = useState(134.08) // in minutes (2:14:05)
+  const [currentTime, setCurrentTime] = useState(42.3)
+  const [totalTime, setTotalTime] = useState(134.08) 
   const [volume, setVolume] = useState(70)
   const [showSubtitles, setShowSubtitles] = useState(false)
   const screenWidth = Dimensions.get('window').width
   const screenHeight = Dimensions.get('window').height
 
-  // Lock to landscape orientation on mount
   useEffect(() => {
     let isMounted = true
 
