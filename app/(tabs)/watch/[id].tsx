@@ -31,7 +31,6 @@ const VideoPlayerLandscape = () => {
 
     lockOrientation()
 
-    // Cleanup: reset to portrait when component unmounts
     return () => {
       isMounted = false
       const resetOrientation = async () => {
