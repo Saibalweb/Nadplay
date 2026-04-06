@@ -106,7 +106,6 @@ const VideoPlayerLandscape = () => {
             </TouchableOpacity>
           </View>
 
-          {/* Center Play Button */}
           <TouchableOpacity
             onPress={handlePlayPause}
             className="mx-auto inset-0 items-center justify-center  w-1/2 h-2/3 rounded-full bg-opacity-50"
