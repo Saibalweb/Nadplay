@@ -91,7 +91,6 @@ const VideoPlayerLandscape = () => {
         className="flex-1"
         resizeMode="cover"
       >
-        {/* Dark overlay */}
         <View className="absolute inset-0 bg-black/50" />
 
         {/* Main Container - Landscape */}
