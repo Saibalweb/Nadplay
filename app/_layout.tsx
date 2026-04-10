@@ -31,7 +31,10 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Provider store={store}>
-      <Slot/>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="watch/[id]" options={{ presentation: 'fullScreenModal' }} />
+        </Stack>
       </Provider>
       <StatusBar style="auto" />
     </ThemeProvider>
