@@ -123,7 +123,7 @@ const VideoPlayerLandscape = () => {
         />
 
         {/* Main Container - Landscape */}
-        <View className="flex-1 flex-row px-6 py-4 justify-between items-center">
+        <View className="flex-1 absolute top-0 left-0 right-0 bottom-0">
           {/* Top Header - Left */}
           <View className="absolute top-4 left-6 flex-row items-center space-x-3">
             <TouchableOpacity
