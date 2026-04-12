@@ -6,6 +6,7 @@ import {
   View,
   Dimensions,
   useWindowDimensions,
+  StatusBar,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -110,108 +111,16 @@ const VideoPlayerLandscape = () => {
     "https://images.unsplash.com/photo-1594909122845-11bced4bd467?w=1200&h=900&fit=crop";
 
   return (
-    <SafeAreaView
-      className="w-full h-full bg-red-500"
-      edges={["top", "bottom", "left", "right"]}
-    >
-      <View className="flex-1">
-        <VideoView
-          player={player}
-          nativeControls={false}
-          contentFit="cover"
-          posterSource={poster}
-        />
-
-        {/* Main Container - Landscape */}
-        <View className="flex-1 absolute top-0 left-0 right-0 bottom-0">
-          {/* Top Header - Left */}
-          <View className="absolute top-4 left-6 flex-row items-center space-x-3">
-            <TouchableOpacity
-              onPress={handleBack}
-              className="p-2 rounded-full bg-black/40 active:bg-black/60"
-            >
-              <Ionicons name="chevron-back" size={28} color="white" />
-            </TouchableOpacity>
-          </View>
-
-          <TouchableOpacity
-            onPress={handlePlayPause}
-            className="mx-auto inset-0 items-center justify-center  w-1/2 h-2/3 rounded-full bg-opacity-50"
-            activeOpacity={0.8}
-          >
-            <View className="h-28 w-28 rounded-full bg-orange-400/85 items-center justify-center shadow-lg">
-              <Ionicons
-                name={isPlaying ? "pause" : "play"}
-                size={48}
-                color="white"
-              />
-            </View>
-          </TouchableOpacity>
-
-          {/* Bottom Left - Skip Controls */}
-          <View className="absolute bottom-6 left-6 flex-row items-center space-x-4">
-            <TouchableOpacity
-              onPress={handleBackward}
-              className="p-3 rounded-full bg-black/40 active:bg-black/60"
-            >
-              <Ionicons name="play-back" size={22} color="white" />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={handleForward}
-              className="p-3 rounded-full bg-black/40 active:bg-black/60"
-            >
-              <Ionicons name="play-forward" size={22} color="white" />
-            </TouchableOpacity>
-          </View>
-
-          {/* Center Bottom - Progress Bar */}
-          <View className="absolute bottom-16 left-6 right-6">
-            <View className="flex-row justify-between items-center mb-2">
-              <Text className="text-white text-xs font-medium">
-                {formatTime(currentTime)}
-              </Text>
-              <Text className="text-white text-xs font-medium">
-                {formatTime(totalTime)}
-              </Text>
-            </View>
-            <View className="h-1 bg-white/30 rounded-full overflow-hidden">
-              <View
-                className="h-full bg-orange-400 rounded-full"
-                style={{ width: `${progress}%` }}
-              />
-            </View>
-          </View>
-
-          {/* Bottom Right - Controls */}
-          <View className="absolute bottom-6 right-6 flex-row items-center space-x-3">
-            <TouchableOpacity
-              onPress={() => setShowSubtitles(!showSubtitles)}
-              className={`p-3 rounded-full ${
-                showSubtitles ? "bg-orange-400/70" : "bg-black/40"
-              } active:bg-black/60`}
-            >
-              <Text className="text-white text-xs font-bold">CC</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity className="p-3 rounded-full bg-black/40 active:bg-black/60">
-              <Ionicons name="volume-high" size={22} color="white" />
-            </TouchableOpacity>
-
-            <TouchableOpacity className="p-3 rounded-full bg-black/40 active:bg-black/60">
-              <Ionicons name="settings" size={22} color="white" />
-            </TouchableOpacity>
-
-            <TouchableOpacity className="p-3 rounded-full bg-black/40 active:bg-black/60">
-              <Ionicons name="expand" size={22} color="white" />
-            </TouchableOpacity>
-
-            <TouchableOpacity className="p-3 rounded-full bg-black/40 active:bg-black/60">
-              <Ionicons name="ellipsis-horizontal" size={22} color="white" />
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-    </SafeAreaView>
+    <View className="flex-1 w-full h-full bg-black">
+      <StatusBar hidden={true} />
+      <VideoView
+        player={player}
+        nativeControls={true}
+        contentFit="cover"
+        posterSource={poster}
+        style={StyleSheet.absoluteFill}
+      />
+    </View>
   );
 };
 
