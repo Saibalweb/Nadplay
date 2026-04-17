@@ -12,45 +12,10 @@ import {
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { getRequest } from "@/hooks/reqBuilder";
+import { API_IMAGE_URL, fetchMovieUrl,API_KEY } from "@/constants/api";
 
 const categories = ["Movies", "Tv Series"];
 
-const API_KEY = "YOUR_API_KEY";
-const BASE_URL = "https://api.themoviedb.org/3";
-const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
-
-// const movies = [
-//   {
-//     id: 1,
-//     title: "Soul",
-//     year: "2020",
-//     image: img,
-//   },
-//   {
-//     id: 2,
-//     title: "Knives Out",
-//     year: "2019",
-//     image: img,
-//   },
-//   {
-//     id: 3,
-//     title: "Onward",
-//     year: "2020",
-//     image: img,
-//   },
-//   {
-//     id: 4,
-//     title: "Mulan",
-//     year: "2020",
-//     image: img,
-//   },
-//   {
-//     id: 5,
-//     title: "The Invisible",
-//     year: "2020",
-//     image: img,
-//   },
-// ];
 
 export default function Movie() {
   const router = useRouter();
@@ -65,9 +30,8 @@ export default function Movie() {
 
     try {
       setLoading(true);
-      const fetchMovieUrl = `${process.env.EXPO_PUBLIC_API_URL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=${pageNumber}&sort_by=popularity.desc`;
-      const token = process.env.EXPO_PUBLIC_API_KEY;
-      const data = await getRequest(fetchMovieUrl, {}, token);
+
+      const data = await getRequest(fetchMovieUrl(pageNumber), {}, API_KEY);
 
       if (data.results.length > 0) {
         setMovies((prevMovies) =>
@@ -95,7 +59,7 @@ export default function Movie() {
     >
       <Image
       source={{
-        uri: `${IMAGE_BASE_URL}${item.poster_path}`,
+        uri: `${API_IMAGE_URL}${item.poster_path}`,
       }}
       className="w-full h-56 rounded-lg"
       resizeMode="cover"

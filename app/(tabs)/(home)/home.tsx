@@ -12,8 +12,9 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { getRequest } from "@/hooks/reqBuilder";
+import { API_IMAGE_URL, API_KEY, fetchMovieByGenreUrl } from "@/constants/api";
 
-const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+
 
 interface Movie {
   id: number;
@@ -47,8 +48,8 @@ export default function App() {
     try {
       setLoadingByGenre((prev) => ({ ...prev, [genreId]: true }));
 
-      const fetchMovieUrl = `${process.env.EXPO_PUBLIC_API_URL}/discover/movie?with_genres=${genreId}&include_adult=false&include_video=false&language=en-US&page=${pageNumber}&sort_by=popularity.desc`;
-      const token = process.env.EXPO_PUBLIC_API_KEY || "";
+      const fetchMovieUrl = fetchMovieByGenreUrl(genreId, pageNumber);
+      const token = API_KEY;
 
       const data = await getRequest(fetchMovieUrl, {}, token);
 
@@ -85,7 +86,7 @@ export default function App() {
       className="mr-4 w-36"
     >
       <Image
-        source={{ uri: `${IMAGE_BASE_URL}${item.poster_path}` }}
+        source={{ uri: `${API_IMAGE_URL}${item.poster_path}` }}
         className="w-36 h-52 rounded-lg"
       />
       <Text className="text-white mt-1 text-lg" numberOfLines={2}>

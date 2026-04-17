@@ -12,6 +12,7 @@ import { router, useLocalSearchParams, useRouter } from "expo-router";
 import { getRequest } from "@/hooks/reqBuilder";
 import { useDispatch, useSelector } from "react-redux";
 import { addMovieToWatchlist, removeMovieFromWatchlist, RootState } from "@/store";
+import { API_IMAGE_URL, API_KEY, movieDetailsUrl } from "@/constants/api";
 
 const tabs = ["About Movie", "Reviews", "Cast"];
 type movieDetails = {
@@ -29,8 +30,8 @@ type movieDetails = {
 }
 export default function MovieDetailScreen({ navigation }) {
       const router = useRouter();
-  const imgUrl = process.env.EXPO_PUBLIC_Image_URL;
-  const item = useLocalSearchParams();
+  const imgUrl = API_IMAGE_URL;
+  const { id } = useLocalSearchParams<{ id: string }>();
   const watchlist = useSelector((state: RootState) => state.watchlist.watchlist);
   const [activeTab, setActiveTab] = React.useState("About Movie");
   const [bookmark, setBookmark] = React.useState(false);
@@ -49,11 +50,9 @@ export default function MovieDetailScreen({ navigation }) {
   });
 
   const fetchMovieDetails = async () => {
-    const movieId = item.id;
-    const movieDetailsUrl = `https://api.themoviedb.org/3/movie/${movieId}?language=en-US`;
-    const token = process.env.EXPO_PUBLIC_API_KEY;
-    const res = await getRequest(movieDetailsUrl, {}, token);
-    if(res?.id == movieId){
+    if (!id) return;
+    const res = await getRequest(movieDetailsUrl(id), {}, API_KEY);
+    if(res?.id == id){
       setMovieDetails({
         id: res?.id,
         adult: res?.adult,
@@ -72,7 +71,7 @@ export default function MovieDetailScreen({ navigation }) {
   const dispatch = useDispatch();
   const bookMarkHandler = () => {
     if(bookmark){
-      dispatch(removeMovieFromWatchlist(item.id));
+      dispatch(removeMovieFromWatchlist(id));
     }else{
       dispatch(addMovieToWatchlist({
         id: movieDetails.id,
@@ -91,9 +90,9 @@ export default function MovieDetailScreen({ navigation }) {
   },[]);
   useEffect(() => {
     // Check if the movie is already in the watchlist
-    const isBookmarked = watchlist.some((movie) => movie.id == item.id);
+    const isBookmarked = watchlist.some((movie) => movie.id == Number(id));
     setBookmark(isBookmarked);
-  }, [watchlist, item.id]);
+  }, [watchlist, id]);
   return (
     <SafeAreaView className="flex-1 bg-[#1a1a1a] p-2">
       {/* Header */}

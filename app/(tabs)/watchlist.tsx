@@ -15,9 +15,10 @@ import {
 import { TagIcon, CalendarIcon } from "react-native-heroicons/outline";
 import { useSelector } from "react-redux";
 import { useRouter } from "expo-router";
+import { API_IMAGE_URL } from "@/constants/api";
 export default function WatchListScreen({ navigation }) {
   const router = useRouter();
-  const imgUrl = process.env.EXPO_PUBLIC_Image_URL;
+  const imgUrl = API_IMAGE_URL;
   const watchlist = useSelector((state) => state.watchlist.watchlist);
   console.log(watchlist);
   return (
