@@ -28,6 +28,13 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="search"
+        options={{
+          title: 'Search',
+          tabBarIcon: ({ color }) => <Feather size={28} name="search" color={color} />,
+        }}
+      />
+      <Tabs.Screen
         name="(movie)"
         options={{
           title: 'Movies',
