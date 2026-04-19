@@ -23,7 +23,6 @@ export default function WatchListScreen({ navigation }) {
   console.log(watchlist);
   return (
     <SafeAreaView className="bg-[#1a1a1a]" style={{ flex: 1 }}>
-      {/* Header */}
       <View className="flex-row items-center px-4 py-3 mt-10">
         <TouchableOpacity className="mr-4">
           <ChevronLeftIcon size={24} color="white" />
