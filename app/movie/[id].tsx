@@ -12,9 +12,8 @@ import { router, useLocalSearchParams, useRouter } from "expo-router";
 import { getRequest } from "@/hooks/reqBuilder";
 import { useDispatch, useSelector } from "react-redux";
 import { addMovieToWatchlist, removeMovieFromWatchlist, RootState } from "@/store";
-import { API_IMAGE_URL, API_KEY, movieDetailsUrl } from "@/constants/api";
+import { API_IMAGE_URL, API_KEY, movieCreditsUrl, movieDetailsUrl } from "@/constants/api";
 
-const tabs = ["About Movie", "Reviews", "Cast"];
 type movieDetails = {
   id: number;
   adult: boolean;
@@ -27,14 +26,21 @@ type movieDetails = {
   spoken_languages: object;
   title: string;
   vote_average: number;
-}
+};
+
+type Cast = {
+  id: number;
+  name: string;
+  character: string;
+  profile_path: string;
+};
 export default function MovieDetailScreen({ navigation }) {
       const router = useRouter();
   const imgUrl = API_IMAGE_URL;
   const { id } = useLocalSearchParams<{ id: string }>();
   const watchlist = useSelector((state: RootState) => state.watchlist.watchlist);
-  const [activeTab, setActiveTab] = React.useState("About Movie");
   const [bookmark, setBookmark] = React.useState(false);
+  const [cast, setCast] = React.useState<Cast[]>([]);
   const [movieDetails, setMovieDetails] = React.useState<movieDetails>({
     id: 0,
     adult: false,
@@ -67,7 +73,16 @@ export default function MovieDetailScreen({ navigation }) {
         vote_average: res?.vote_average
       });
     }
-  }
+  };
+
+  const fetchMovieCredits = async () => {
+    if (!id) return;
+    const res = await getRequest(movieCreditsUrl(id), {}, API_KEY);
+    if (res?.cast) {
+      console.log(JSON.stringify(res.cast,null,2))
+      setCast(res.cast);
+    }
+  };
   const dispatch = useDispatch();
   const bookMarkHandler = () => {
     if(bookmark){
@@ -85,9 +100,10 @@ export default function MovieDetailScreen({ navigation }) {
       }))
     }
     }
-  useEffect(()=>{
+  useEffect(() => {
     fetchMovieDetails();
-  },[]);
+    fetchMovieCredits();
+  }, []);
   useEffect(() => {
     // Check if the movie is already in the watchlist
     const isBookmarked = watchlist.some((movie) => movie.id == Number(id));
@@ -149,34 +165,46 @@ export default function MovieDetailScreen({ navigation }) {
             </View>
           </View>
 
-          {/* Tabs */}
-          <View className="flex-row mt-6 border-b border-gray-800">
-            {tabs.map((tab) => (
-              <TouchableOpacity
-                key={tab}
-                onPress={() => setActiveTab(tab)}
-                className="mr-6 pb-2"
-              >
-                <Text
-                  className={`${
-                    activeTab === tab ? "text-white" : "text-gray-500"
-                  }`}
-                >
-                  {tab}
-                </Text>
-                {activeTab === tab && (
-                  <View className="h-0.5 bg-red-500 absolute bottom-0 w-full" />
-                )}
-              </TouchableOpacity>
-            ))}
-          </View>
-
-          {/* About Content */}
-          {activeTab === "About Movie" && (
-            <Text className="text-gray-400 mt-4 leading-6">
+          {/* About Movie Section */}
+          <View className="mt-8">
+            <Text className="text-white text-lg font-bold mb-2">About Movie</Text>
+            <Text className="text-gray-400 leading-6">
               {movieDetails.overview}
             </Text>
-          )}
+          </View>
+
+          {/* Cast Section */}
+          <View className="mt-8 mb-8">
+            <Text className="text-white text-lg font-bold mb-4">Cast</Text>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <View className="flex-row">
+                {cast.map((person) => (
+                  <View key={person.id} className="mr-4 items-center w-20">
+                    <Image
+                      source={{
+                        uri: person.profile_path
+                          ? `${imgUrl}${person.profile_path}`
+                          : "https://via.placeholder.com/150",
+                      }}
+                      className="w-20 h-20 rounded-full"
+                    />
+                    <Text
+                      className="text-white text-xs mt-2 text-center"
+                      numberOfLines={2}
+                    >
+                      {person.name}
+                    </Text>
+                    <Text
+                      className="text-gray-500 text-[10px] text-center"
+                      numberOfLines={1}
+                    >
+                      {person.character}
+                    </Text>
+                  </View>
+                ))}
+              </View>
+            </ScrollView>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>

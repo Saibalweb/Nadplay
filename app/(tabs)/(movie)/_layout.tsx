@@ -9,7 +9,6 @@ export default function MovieLayout(){
             headerShown: false,
           }}>
         <Stack.Screen name="movie" options={{ headerShown: false }} />
-        <Stack.Screen name="moviedetails" options={{ headerShown: false }} />
         </Stack>
     );
 }

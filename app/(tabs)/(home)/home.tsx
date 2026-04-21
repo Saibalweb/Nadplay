@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { getRequest } from "@/hooks/reqBuilder";
 import { API_IMAGE_URL, API_KEY, fetchMovieByGenreUrl } from "@/constants/api";
 
@@ -82,7 +83,9 @@ export default function App() {
   }, []);
   const renderMovieCard: ListRenderItem<Movie> = ({ item }) => (
     <TouchableOpacity
-      onPress={() => console.log("Clicked:", item.title)}
+      onPress={() => router.push({
+        pathname: `/movie/${item.id}`,
+      })}
       className="mr-4 w-36"
     >
       <Image

@@ -20,7 +20,6 @@ export default function WatchListScreen({ navigation }) {
   const router = useRouter();
   const imgUrl = API_IMAGE_URL;
   const watchlist = useSelector((state) => state.watchlist.watchlist);
-  console.log(watchlist);
   return (
     <SafeAreaView className="bg-[#1a1a1a]" style={{ flex: 1 }}>
       <View className="flex-row items-center px-4 py-3 mt-10">
@@ -47,7 +46,7 @@ export default function WatchListScreen({ navigation }) {
             className="flex-row p-4 border-b border-gray-800"
             onPress={() =>
               router.push({
-                pathname: "/moviedetails",
+                pathname: "/movie/[id]",
                 params: { id: movie.id },
               })
             }

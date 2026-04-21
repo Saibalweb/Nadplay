@@ -9,7 +9,6 @@ export default function HomeLayout(){
             headerShown: false,
           }}>
         <Stack.Screen name="home" options={{ headerShown: false }} />
-        <Stack.Screen name="moviedetails" options={{ headerShown: false }} />
         </Stack>
     );
 }
