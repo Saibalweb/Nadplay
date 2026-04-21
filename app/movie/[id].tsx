@@ -34,6 +34,11 @@ type Cast = {
   character: string;
   profile_path: string;
 };
+type Director = {
+  id: number;
+  name: string;
+  profile_path: string;
+} 
 export default function MovieDetailScreen({ navigation }) {
       const router = useRouter();
   const imgUrl = API_IMAGE_URL;
@@ -41,6 +46,7 @@ export default function MovieDetailScreen({ navigation }) {
   const watchlist = useSelector((state: RootState) => state.watchlist.watchlist);
   const [bookmark, setBookmark] = React.useState(false);
   const [cast, setCast] = React.useState<Cast[]>([]);
+  const [director, setDirector] = React.useState<Director[]>([]);
   const [movieDetails, setMovieDetails] = React.useState<movieDetails>({
     id: 0,
     adult: false,
@@ -78,9 +84,14 @@ export default function MovieDetailScreen({ navigation }) {
   const fetchMovieCredits = async () => {
     if (!id) return;
     const res = await getRequest(movieCreditsUrl(id), {}, API_KEY);
-    if (res?.cast) {
-      console.log(JSON.stringify(res.cast,null,2))
-      setCast(res.cast);
+    if (res) {
+      // Filter for cast (actors)
+      const filtered_cast = res?.cast?.filter((person: any) => person?.known_for_department === "Acting") || [];
+      setCast(filtered_cast.slice(0, 10));
+
+      // Filter for actual directors of this movie using the 'job' field
+      const directors = res?.crew?.filter((person: any) => person?.job === "Director") || [];
+      setDirector(directors);
     }
   };
   const dispatch = useDispatch();
@@ -171,6 +182,33 @@ export default function MovieDetailScreen({ navigation }) {
             <Text className="text-gray-400 leading-6">
               {movieDetails.overview}
             </Text>
+          </View>
+
+          {/* Director Section */}
+          <View className="mt-8">
+            <Text className="text-white text-lg font-bold mb-4">Director</Text>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <View className="flex-row">
+                {director.map((person) => (
+                  <View key={person.id} className="mr-4 items-center w-20">
+                    <Image
+                      source={{
+                        uri: person.profile_path
+                          ? `${imgUrl}${person.profile_path}`
+                          : "https://via.placeholder.com/150",
+                      }}
+                      className="w-20 h-20 rounded-full"
+                    />
+                    <Text
+                      className="text-white text-xs mt-2 text-center"
+                      numberOfLines={2}
+                    >
+                      {person.name}
+                    </Text>
+                  </View>
+                ))}
+              </View>
+            </ScrollView>
           </View>
 
           {/* Cast Section */}
