@@ -85,11 +85,8 @@ const SearchScreen = () => {
     }
   };
 
-  const handleGenrePress = (genreId) => {
-    // Navigate to a search-results-style screen with genre filter
-    // For now, let's just trigger a search with the genre name if we had that logic
-    // but the API is there for future use.
-    console.log('Genre pressed:', genreId);
+  const handleGenrePress = (genreId, genreTitle) => {
+    router.push(`/explore/genre/${genreId}?title=${genreTitle}`);
   };
 
   return (
@@ -208,7 +205,7 @@ const SearchScreen = () => {
                   <TouchableOpacity
                     key={index}
                     className="w-[47%] h-32 rounded-2xl overflow-hidden mb-1"
-                    onPress={() => handleGenrePress(genre.id)}
+                    onPress={() => handleGenrePress(genre.id, genre.title)}
                   >
                     <Image source={{ uri: genre.image }} className="w-full h-full" resizeMode="cover" />
                     <View className={`absolute inset-0 items-center justify-center backdrop-blur-sm ${genre.color}`}>
@@ -227,7 +224,7 @@ const SearchScreen = () => {
                   <TouchableOpacity
                     key={index}
                     className="bg-[#1e2024] px-8 py-4 rounded-2xl mr-3 border border-[#584238]/10"
-                    onPress={() => console.log('Language pressed:', lang.code)}
+                    onPress={() => router.push(`/explore/language/${lang.code}?title=${lang.name}`)}
                   >
                     <Text className="text-[#e2e2e8] font-medium">{lang.name}</Text>
                   </TouchableOpacity>
