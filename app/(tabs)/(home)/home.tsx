@@ -104,7 +104,19 @@ export default function App() {
 
     return (
       <View className="mt-6">
-        <Text className="text-white text-xl font-semibold mb-3">{title}</Text>
+        <View className="flex-row justify-between items-center mb-3">
+          <Text className="text-white text-xl font-semibold">{title}</Text>
+          <TouchableOpacity 
+            onPress={() => router.push({
+              pathname: `/explore/genre/${genreId}`,
+              params: { title }
+            })}
+            className="flex-row items-center p-2"
+          >
+            <Text className="text-gray-400 text-lg mr-1">See All</Text>
+            <Ionicons name="chevron-forward" size={16} color="#9ca3af" />
+          </TouchableOpacity>
+        </View>
         {movies.length === 0 && isLoading ? (
           <ActivityIndicator size="small" color="#fff" />
         ) : (

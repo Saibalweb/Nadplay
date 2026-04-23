@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
-  SafeAreaView,
   ActivityIndicator,
   Dimensions,
 } from 'react-native';
@@ -18,6 +17,7 @@ import {
   fetchMovieByGenreUrl,
   fetchMoviesByLanguageUrl,
 } from '../../../constants/api';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const { width } = Dimensions.get('window');
 
