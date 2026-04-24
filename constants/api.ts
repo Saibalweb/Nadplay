@@ -31,6 +31,12 @@ export const fetchGenreListUrl = () =>
 export const fetchMoviesByLanguageUrl = (languageCode: string, pageNumber: number = 1) =>
   `${API_BASE_URL}/discover/movie?with_original_language=${languageCode}&include_adult=false&include_video=false&language=en-US&page=${pageNumber}&sort_by=popularity.desc`;
 
+export const personDetailsUrl = (personId: string) =>
+  `${API_BASE_URL}/person/${personId}?language=en-US`;
+
+export const personMovieCreditsUrl = (personId: string) =>
+  `${API_BASE_URL}/person/${personId}/movie_credits?language=en-US`;
+
 export const ENDPOINTS = {
   getMoviesUrl,
   getMovieDetailsUrl,
@@ -41,4 +47,6 @@ export const ENDPOINTS = {
   fetchTrendingUrl,
   fetchGenreListUrl,
   fetchMoviesByLanguageUrl,
+  personDetailsUrl,
+  personMovieCreditsUrl,
 };

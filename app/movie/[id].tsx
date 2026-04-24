@@ -190,7 +190,11 @@ export default function MovieDetailScreen({ navigation }) {
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View className="flex-row">
                 {director.map((person) => (
-                  <View key={person.id} className="mr-4 items-center w-20">
+                  <TouchableOpacity
+                    key={person.id}
+                    onPress={() => router.push(`/person/${person.id}`)}
+                    className="mr-4 items-center w-20"
+                  >
                     <Image
                       source={{
                         uri: person.profile_path
@@ -205,7 +209,7 @@ export default function MovieDetailScreen({ navigation }) {
                     >
                       {person.name}
                     </Text>
-                  </View>
+                  </TouchableOpacity>
                 ))}
               </View>
             </ScrollView>
@@ -213,11 +217,20 @@ export default function MovieDetailScreen({ navigation }) {
 
           {/* Cast Section */}
           <View className="mt-8 mb-8">
-            <Text className="text-white text-lg font-bold mb-4">Cast</Text>
+            <View className="flex-row justify-between items-center mb-4">
+              <Text className="text-white text-lg font-bold">Cast</Text>
+              <TouchableOpacity onPress={() => router.push(`/movie/cast/${id}`)}>
+                <Text className="text-gray-400">See All {">"}</Text>
+              </TouchableOpacity>
+            </View>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View className="flex-row">
                 {cast.map((person) => (
-                  <View key={person.id} className="mr-4 items-center w-20">
+                  <TouchableOpacity
+                    key={person.id}
+                    onPress={() => router.push(`/person/${person.id}`)}
+                    className="mr-4 items-center w-20"
+                  >
                     <Image
                       source={{
                         uri: person.profile_path
@@ -238,7 +251,7 @@ export default function MovieDetailScreen({ navigation }) {
                     >
                       {person.character}
                     </Text>
-                  </View>
+                  </TouchableOpacity>
                 ))}
               </View>
             </ScrollView>
