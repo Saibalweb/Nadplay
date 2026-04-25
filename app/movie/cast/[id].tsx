@@ -24,7 +24,6 @@ export default function CastScreen() {
     try {
       const res = await getRequest(movieCreditsUrl(id), {}, API_KEY);
       if (res && res.cast) {
-        // Filter for acting cast
         const filteredCast = res.cast.filter((person: any) => person.known_for_department === "Acting");
         setCast(filteredCast);
       }
