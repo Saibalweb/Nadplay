@@ -17,7 +17,6 @@ import {
   personDetailsUrl,
   personMovieCreditsUrl,
 } from "@/constants/api";
-import { LinearGradient } from "expo-linear-gradient";
 
 const { width, height } = Dimensions.get("window");
 
