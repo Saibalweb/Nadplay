@@ -85,11 +85,9 @@ export default function MovieDetailScreen({ navigation }) {
     if (!id) return;
     const res = await getRequest(movieCreditsUrl(id), {}, API_KEY);
     if (res) {
-      // Filter for cast (actors)
       const filtered_cast = res?.cast?.filter((person: any) => person?.known_for_department === "Acting") || [];
       setCast(filtered_cast.slice(0, 10));
 
-      // Filter for actual directors of this movie using the 'job' field
       const directors = res?.crew?.filter((person: any) => person?.job === "Director") || [];
       setDirector(directors);
     }
