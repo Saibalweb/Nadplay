@@ -12,7 +12,7 @@ import {
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { getRequest } from "@/hooks/reqBuilder";
-import { API_IMAGE_URL, fetchMovieUrl,API_KEY } from "@/constants/api";
+import { API_IMAGE_URL, fetchMovieUrl, fetchTvUrl, API_KEY } from "@/constants/api";
 
 const categories = ["Movies", "Tv Series"];
 
@@ -25,49 +25,57 @@ export default function Movie() {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
-  const fetchMovies = async (pageNumber: number) => {
-    if (!hasMore || loading) return;
+  const fetchContent = async (pageNumber: number, category: string) => {
+    if (loading) return;
 
     try {
       setLoading(true);
-
-      const data = await getRequest(fetchMovieUrl(pageNumber), {}, API_KEY);
+      const url = category === "Movies" ? fetchMovieUrl(pageNumber) : fetchTvUrl(pageNumber);
+      const data = await getRequest(url, {}, API_KEY);
 
       if (data.results.length > 0) {
-        setMovies((prevMovies) =>
-          pageNumber === 1 ? data.results : [...prevMovies, ...data.results]
+        setMovies((prevItems) =>
+          pageNumber === 1 ? data.results : [...prevItems, ...data.results]
         );
         setHasMore(pageNumber < data.total_pages);
       } else {
         setHasMore(false);
       }
     } catch (error) {
-      console.error("Error fetching movies:", error);
+      console.error(`Error fetching ${category}:`, error);
     } finally {
       setLoading(false);
     }
   };
+
   useEffect(() => {
-    fetchMovies(1);
-  }, []);
-  const rennderMovies = ({ item }: { item: any }) => {
-    return(
-    <TouchableOpacity
-      key={item.id}
-      className="w-[46%] mb-4 mx-2"
-      onPress={() => router.push(`/movie/${item.id}`)}
-    >
-      <Image
-      source={{
-        uri: `${API_IMAGE_URL}${item.poster_path}`,
-      }}
-      className="w-full h-56 rounded-lg"
-      resizeMode="cover"
-      />
-      <Text className="text-white mt-2">{item.title}</Text>
-      <Text className="text-gray-500">{item.release_date}</Text>
-    </TouchableOpacity>
-    )
+    setMovies([]);
+    setPage(1);
+    setHasMore(true);
+    fetchContent(1, activeCategory);
+  }, [activeCategory]);
+  const renderItem = ({ item }: { item: any }) => {
+    const title = item.title || item.name;
+    const date = item.release_date || item.first_air_date;
+    const route = activeCategory === "Movies" ? `/movie/${item.id}` : `/tv/${item.id}`;
+
+    return (
+      <TouchableOpacity
+        key={item.id}
+        className="w-[46%] mb-4 mx-2"
+        onPress={() => router.push(route)}
+      >
+        <Image
+          source={{
+            uri: `${API_IMAGE_URL}${item.poster_path}`,
+          }}
+          className="w-full h-56 rounded-lg"
+          resizeMode="cover"
+        />
+        <Text className="text-white mt-2" numberOfLines={1}>{title}</Text>
+        <Text className="text-gray-500">{date}</Text>
+      </TouchableOpacity>
+    );
   };
   const renderLoader = () => {
     if (!loading) return null;
@@ -78,11 +86,11 @@ export default function Movie() {
     );
   };
 
-  const loadMoreMovies = () => {
+  const loadMoreContent = () => {
     if (!loading && hasMore) {
       const nextPage = page + 1;
       setPage(nextPage);
-      fetchMovies(nextPage);
+      fetchContent(nextPage, activeCategory);
     }
   };
   return (
@@ -121,12 +129,13 @@ export default function Movie() {
       {/* Movie Grid */}
       <FlatList
         data={movies}
-        renderItem={rennderMovies}
+        renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
-        onEndReached={loadMoreMovies}
-        onEndReachedThreshold={0.1}
+        onEndReached={loadMoreContent}
+        onEndReachedThreshold={0.5}
         ListFooterComponent={renderLoader}
         numColumns={2}
+        contentContainerStyle={{ paddingBottom: 20 }}
       />
     </View>
   );

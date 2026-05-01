@@ -37,10 +37,22 @@ export const personDetailsUrl = (personId: string) =>
 export const personMovieCreditsUrl = (personId: string) =>
   `${API_BASE_URL}/person/${personId}/movie_credits?language=en-US`;
 
+export const fetchTvUrl = (pageNumber: number) =>
+  `${API_BASE_URL}/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=${pageNumber}&sort_by=popularity.desc`;
+
+export const tvDetailsUrl = (tvId: string) =>
+  `${API_BASE_URL}/tv/${tvId}?language=en-US`;
+
+export const tvCreditsUrl = (tvId: string) =>
+  `${API_BASE_URL}/tv/${tvId}/credits?language=en-US`;
+
 export const ENDPOINTS = {
   getMoviesUrl,
   getMovieDetailsUrl,
   fetchMovieUrl,
+  fetchTvUrl,
+  tvDetailsUrl,
+  tvCreditsUrl,
   fetchMovieByGenreUrl,
   movieDetailsUrl,
   searchMoviesUrl,
