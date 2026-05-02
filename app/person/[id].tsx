@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { FontAwesome } from "@expo/vector-icons";
 import { ChevronLeftIcon } from "react-native-heroicons/solid";
 import { getRequest } from "@/hooks/reqBuilder";
 import {
@@ -111,15 +112,17 @@ export default function PersonDetailsScreen() {
             className="rounded-full overflow-hidden border-4 border-gray-700 shadow-2xl"
             style={{ width: width * 0.5, height: width * 0.5 }}
           >
-            <Image
-              source={{
-                uri: person.profile_path
-                  ? `${API_IMAGE_URL}${person.profile_path}`
-                  : "https://via.placeholder.com/300",
-              }}
-              className="w-full h-full"
-              resizeMode="cover"
-            />
+            {person.profile_path ? (
+              <Image
+                source={{ uri: `${API_IMAGE_URL}${person.profile_path}` }}
+                className="w-full h-full"
+                resizeMode="cover"
+              />
+            ) : (
+              <View className="w-full h-full justify-center items-center bg-gray-800">
+                <FontAwesome name="user-circle" size={width * 0.4} color="gray" />
+              </View>
+            )}
           </View>
           <Text className="text-white text-3xl font-bold mt-6 text-center">
             {person.name}

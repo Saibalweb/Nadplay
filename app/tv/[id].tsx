@@ -4,7 +4,7 @@ import {
   ChevronLeftIcon,
   StarIcon,
 } from "react-native-heroicons/solid";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import { TagIcon, CalendarIcon } from "react-native-heroicons/outline";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -168,14 +168,15 @@ export default function TvDetailScreen() {
                     onPress={() => router.push(`/person/${person.id}`)}
                     className="mr-4 items-center w-20"
                   >
-                    <Image
-                      source={{
-                        uri: person.profile_path
-                          ? `${imgUrl}${person.profile_path}`
-                          : "https://via.placeholder.com/150",
-                      }}
-                      className="w-20 h-20 rounded-full"
-                    />
+                    {person.profile_path ? (
+                      <Image
+                        source={{ uri: `${imgUrl}${person.profile_path}` }}
+                        className="w-20 h-20 rounded-full"
+                        resizeMode="cover"
+                      />
+                    ) : (
+                      <FontAwesome name="user-circle" size={80} color="gray" style={{ width: 80, height: 80 }} />
+                    )}
                     <Text
                       className="text-white text-xs mt-2 text-center"
                       numberOfLines={2}

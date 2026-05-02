@@ -5,6 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { getRequest } from "@/hooks/reqBuilder";
 import { API_IMAGE_URL, API_KEY, tvCreditsUrl } from "@/constants/api";
+import { FontAwesome } from "@expo/vector-icons";
 
 type CastMember = {
   id: number;
@@ -43,15 +44,15 @@ export default function TvCastScreen() {
       onPress={() => router.push(`/person/${item.id}`)}
       className="flex-1 m-2 items-center"
     >
-      <Image
-        source={{
-          uri: item.profile_path
-            ? `${API_IMAGE_URL}${item.profile_path}`
-            : "https://via.placeholder.com/150",
-        }}
-        className="w-24 h-24 rounded-full"
-        resizeMode="cover"
-      />
+      {item.profile_path ? (
+        <Image
+          source={{ uri: `${API_IMAGE_URL}${item.profile_path}` }}
+          className="w-24 h-24 rounded-full"
+          resizeMode="cover"
+        />
+      ) : (
+        <FontAwesome name="user-circle" size={80} color="gray" style={{ width: 80, height: 80 }} />
+      )}
       <Text className="text-white text-sm font-bold mt-2 text-center" numberOfLines={1}>
         {item.name}
       </Text>
