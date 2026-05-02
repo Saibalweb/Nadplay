@@ -92,7 +92,6 @@ export default function TvDetailScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-[#1a1a1a]">
-      {/* Header */}
       <View className="flex-row items-center justify-between px-4 py-3 absolute top-10 w-full z-10">
         <TouchableOpacity onPress={() => router.back()}>
           <ChevronLeftIcon size={35} color="white" />
