@@ -9,7 +9,6 @@ import {
   ActivityIndicator,
   FlatList
 } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { getRequest } from "@/hooks/reqBuilder";
 import { API_IMAGE_URL, fetchMovieUrl, fetchTvUrl, API_KEY } from "@/constants/api";
