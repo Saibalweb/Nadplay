@@ -7,14 +7,16 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
-  FlatList
+  FlatList,
+  Dimensions
 } from "react-native";
 import { useRouter } from "expo-router";
 import { getRequest } from "@/hooks/reqBuilder";
 import { API_IMAGE_URL, fetchMovieUrl, fetchTvUrl, API_KEY } from "@/constants/api";
+import MovieCard from "@/components/MovieCard";
 
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const categories = ["Movies", "Tv Series"];
-
 
 export default function Movie() {
   const router = useRouter();
@@ -53,29 +55,19 @@ export default function Movie() {
     setHasMore(true);
     fetchContent(1, activeCategory);
   }, [activeCategory]);
-  const renderItem = ({ item }: { item: any }) => {
-    const title = item.title || item.name;
-    const date = item.release_date || item.first_air_date;
-    const route = activeCategory === "Movies" ? `/movie/${item.id}` : `/tv/${item.id}`;
 
+  const renderItem = ({ item }: { item: any }) => {
     return (
-      <TouchableOpacity
-        key={item.id}
-        className="w-[46%] mb-4 mx-2"
-        onPress={() => router.push(route)}
-      >
-        <Image
-          source={{
-            uri: `${API_IMAGE_URL}${item.poster_path}`,
-          }}
-          className="w-full h-56 rounded-lg"
-          resizeMode="cover"
-        />
-        <Text className="text-white mt-2" numberOfLines={1}>{title}</Text>
-        <Text className="text-gray-500">{date}</Text>
-      </TouchableOpacity>
+      <MovieCard
+        item={item}
+        width={(SCREEN_WIDTH - 48) / 2} // Account for padding and gap
+        height={240}
+        containerClass="mb-4 mx-2"
+        type={activeCategory === "Movies" ? "movie" : "tv"}
+      />
     );
   };
+
   const renderLoader = () => {
     if (!loading) return null;
     return (
@@ -92,22 +84,13 @@ export default function Movie() {
       fetchContent(nextPage, activeCategory);
     }
   };
+
   return (
     <View className="flex-1 bg-[#121212] px-4 py-4 pt-12">
       {/* Header */}
       <Text className="text-white text-3xl font-semibold my-4 mx-2">
         Find Movies, Tv series,{"\n"}and more..
       </Text>
-
-      {/* Search Bar */}
-      {/* <View className="flex-row items-center  bg-[#1f1f1f] rounded-lg px-4 py-2 my-3 mx-2">
-        <MaterialCommunityIcons size={20} color="#666" name='magnify' />
-        <TextInput
-          placeholder="Sherlock Holmes"
-          placeholderTextColor="#666"
-          className="flex-1  text-white text-xl items-center"
-        />
-      </View> */}
 
       {/* Categories */}
       <View className="mb-6 mx-4 flex-row">

@@ -26,6 +26,7 @@ import {
   fetchGenreListUrl,
   fetchMoviesByLanguageUrl,
 } from '../../constants/api';
+import MovieCard from '@/components/MovieCard';
 
 const { width } = Dimensions.get('window');
 
@@ -125,20 +126,13 @@ const SearchScreen = () => {
             ) : (
               <View className="flex-row flex-wrap justify-between">
                 {searchResults.map((item) => (
-                  <TouchableOpacity
+                  <MovieCard
                     key={item.id}
-                    className="mb-4"
-                    style={{ width: width * 0.44 }}
-                    onPress={() => router.push(`/movie/${item.id}`)}
-                  >
-                    <Image
-                      source={{ uri: item.poster_path ? `${API_IMAGE_URL}${item.poster_path}` : 'https://via.placeholder.com/500x750?text=No+Image' }}
-                      className="w-full h-64 rounded-2xl mb-2"
-                      resizeMode="cover"
-                    />
-                    <Text className="text-[#e2e2e8] font-medium" numberOfLines={1}>{item.title}</Text>
-                    <Text className="text-[#dfc0b3] text-sm">{item.release_date?.split('-')[0] || 'N/A'}</Text>
-                  </TouchableOpacity>
+                    item={item}
+                    width={width * 0.44}
+                    height={260}
+                    containerClass="mb-4"
+                  />
                 ))}
               </View>
             )}
@@ -179,18 +173,13 @@ const SearchScreen = () => {
                   {trendingMovies.map((item,index) => {
                     if(index>5 || !item.poster_path) return null;
                     return(
-                    <TouchableOpacity
-                      key={item.id}
-                      className="mr-4 w-40"
-                      onPress={() => router.push(`/movie/${item.id}`)}
-                    >
-                      <Image
-                        source={{ uri: `${API_IMAGE_URL}${item.poster_path}` }}
-                        className="w-full h-56 rounded-2xl mb-2"
-                        resizeMode="cover"
+                      <MovieCard
+                        key={item.id}
+                        item={item}
+                        width={160}
+                        height={224}
+                        containerClass="mr-4"
                       />
-                      <Text className="text-[#e2e2e8] font-medium" numberOfLines={1}>{item.title}</Text>
-                    </TouchableOpacity>
                   )
                 })}
                 </ScrollView>

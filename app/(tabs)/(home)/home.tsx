@@ -14,13 +14,13 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { getRequest } from "@/hooks/reqBuilder";
 import { API_IMAGE_URL, API_KEY, fetchMovieByGenreUrl } from "@/constants/api";
-
-
+import MovieCard from "@/components/MovieCard";
 
 interface Movie {
   id: number;
   title: string;
   poster_path: string;
+  vote_average?: number;
 }
 
 interface Genre {
@@ -35,7 +35,6 @@ const GENRES: Genre[] = [
   { id: 53, name: "Thriller" },
   { id: 14, name: "Fantasy" },
 ];
-
 
 export default function App() {
   const [moviesByGenre, setMoviesByGenre] = useState<Record<number, Movie[]>>({});
@@ -81,21 +80,14 @@ export default function App() {
       fetchMovies(genre.id, 1);
     });
   }, []);
+
   const renderMovieCard: ListRenderItem<Movie> = ({ item }) => (
-    <TouchableOpacity
-      onPress={() => router.push({
-        pathname: `/movie/${item.id}`,
-      })}
-      className="mr-4 w-36"
-    >
-      <Image
-        source={{ uri: `${API_IMAGE_URL}${item.poster_path}` }}
-        className="w-36 h-52 rounded-lg"
-      />
-      <Text className="text-white mt-1 text-lg" numberOfLines={2}>
-        {item.title}
-      </Text>
-    </TouchableOpacity>
+    <MovieCard 
+      item={item} 
+      containerClass="mr-4"
+      width={144}
+      height={210}
+    />
   );
 
   const renderSection = (title: string, genreId: number) => {

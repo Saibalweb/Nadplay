@@ -4,7 +4,6 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
-  Image,
   ActivityIndicator,
   Dimensions,
 } from 'react-native';
@@ -13,11 +12,11 @@ import { ChevronLeftIcon } from 'react-native-heroicons/outline';
 import { getRequest } from '../../../hooks/reqBuilder';
 import {
   API_KEY,
-  API_IMAGE_URL,
   fetchMovieByGenreUrl,
   fetchMoviesByLanguageUrl,
 } from '../../../constants/api';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import MovieCard from '@/components/MovieCard';
 
 const { width } = Dimensions.get('window');
 
@@ -27,7 +26,6 @@ const ExploreResultsScreen = () => {
 
   const [movies, setMovies] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
 
   useEffect(() => {
     fetchMovies();
@@ -84,37 +82,13 @@ const ExploreResultsScreen = () => {
         >
           <View className="flex-row flex-wrap justify-between">
             {movies.map((item) => (
-              <TouchableOpacity
+              <MovieCard
                 key={item.id}
-                className="mb-6"
-                style={{ width: width * 0.44 }}
-                onPress={() => router.push(`/movie/${item.id}`)}
-              >
-                <View className="relative">
-                  <Image
-                    source={{ 
-                      uri: item.poster_path 
-                        ? `${API_IMAGE_URL}${item.poster_path}` 
-                        : 'https://via.placeholder.com/500x750?text=No+Image' 
-                    }}
-                    className="w-full h-64 rounded-3xl"
-                    resizeMode="cover"
-                  />
-                  {item.vote_average > 0 && (
-                    <View className="absolute top-3 right-3 bg-[#111318]/80 px-2 py-1 rounded-lg border border-[#584238]/20">
-                      <Text className="text-[#ffb692] text-xs font-bold">
-                        ★ {item.vote_average.toFixed(1)}
-                      </Text>
-                    </View>
-                  )}
-                </View>
-                <Text className="text-[#e2e2e8] font-semibold mt-2 px-1" numberOfLines={1}>
-                  {item.title}
-                </Text>
-                <Text className="text-[#dfc0b3] text-xs px-1">
-                  {item.release_date?.split('-')[0] || 'N/A'}
-                </Text>
-              </TouchableOpacity>
+                item={item}
+                width={width * 0.44}
+                height={260}
+                containerClass="mb-6"
+              />
             ))}
           </View>
           
