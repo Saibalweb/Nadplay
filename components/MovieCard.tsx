@@ -1,9 +1,8 @@
 import React from 'react';
-import { TouchableOpacity, Image, Text, View, Dimensions } from 'react-native';
+import { TouchableOpacity, Image, Text, View } from 'react-native';
 import { router } from 'expo-router';
 import { API_IMAGE_URL } from '@/constants/api';
 
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 interface Movie {
   id: number;
