@@ -106,7 +106,6 @@ export default function PersonDetailsScreen() {
       </View>
 
       <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
-        {/* Profile Image & Name */}
         <View className="items-center mt-4">
           <View
             className="rounded-full overflow-hidden border-4 border-gray-700 shadow-2xl"
