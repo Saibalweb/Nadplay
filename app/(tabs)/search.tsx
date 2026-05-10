@@ -14,7 +14,6 @@ import {
   MagnifyingGlassIcon,
   MicrophoneIcon,
   XMarkIcon,
-  ChevronRightIcon,
 } from 'react-native-heroicons/outline';
 import { useRouter } from 'expo-router';
 import { getRequest } from '../../hooks/reqBuilder';

@@ -2,9 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
-  TextInput,
-  ScrollView,
-  Image,
   TouchableOpacity,
   ActivityIndicator,
   FlatList,
@@ -19,7 +16,6 @@ const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const categories = ["Movies", "Tv Series"];
 
 export default function Movie() {
-  const router = useRouter();
   const [activeCategory, setActiveCategory] = React.useState("Movies");
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
