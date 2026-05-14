@@ -103,8 +103,6 @@ export default function Movie() {
           </TouchableOpacity>
         ))}
       </View>
-
-      {/* Movie Grid */}
       <FlatList
         data={movies}
         renderItem={renderItem}
