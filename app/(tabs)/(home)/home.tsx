@@ -106,11 +106,11 @@ export default function App() {
             className="flex-row items-center p-2"
           >
             <Text className="text-gray-400 text-lg mr-1">See All</Text>
-            <Ionicons name="chevron-forward" size={16} color="#9ca3af" />
+            <Ionicons name="chevron-forward" size={16} color="var(--on-surface-variant)" />
           </TouchableOpacity>
         </View>
         {movies.length === 0 && isLoading ? (
-          <ActivityIndicator size="small" color="#fff" />
+          <ActivityIndicator size="small" color="var(--on-surface)" />
         ) : (
           <FlatList
             horizontal
@@ -123,7 +123,7 @@ export default function App() {
             ListFooterComponent={
               isLoading ? (
                 <View className="justify-center items-center px-2">
-                  <ActivityIndicator size="small" color="#fff" />
+                  <ActivityIndicator size="small" color="var(--on-surface)" />
                 </View>
               ) : null
             }
@@ -134,7 +134,7 @@ export default function App() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-900 px-4">
+    <SafeAreaView className="flex-1 bg-background px-4">
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Coming Soon */}
         <Text className="text-white text-3xl font-bold mb-3 mt-2">Coming Soon</Text>
@@ -145,7 +145,7 @@ export default function App() {
           />
           <TouchableOpacity
             onPress={() => console.log("Play trailer")}
-            className="absolute top-1/2 left-1/2 -ml-5 -mt-5 bg-orange-500 w-10 h-10 rounded-full items-center justify-center"
+            className="absolute top-1/2 left-1/2 -ml-5 -mt-5 bg-primary w-10 h-10 rounded-full items-center justify-center"
           >
             <Ionicons name="play" size={20} color="white" />
           </TouchableOpacity>
@@ -157,7 +157,7 @@ export default function App() {
             <TouchableOpacity
               key={genre.id}
               onPress={() => console.log("Clicked genre:", genre.name)}
-              className="bg-gray-700 px-3 py-1 rounded-full mr-2 mt-2"
+              className="bg-surface-container px-3 py-1 rounded-full mr-2 mt-2"
             >
               <Text className="text-white text-sm">{genre.name}</Text>
             </TouchableOpacity>

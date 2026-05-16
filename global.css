@@ -9,39 +9,8 @@
   --background: #111318;
   --on-surface: #e2e2e8;
   --on-surface-variant: #dfc0b3;
-}
-
-@layer utilities {
-  /* Primary Color Classes */
-  .bg-primary {
-    background-color: var(--primary);
-  }
-  .text-primary {
-    color: var(--primary);
-  }
-  .border-primary {
-    border-color: var(--primary);
-  }
-
-  /* Secondary Color Classes */
-  .bg-secondary {
-    background-color: var(--secondary);
-  }
-  .text-secondary {
-    color: var(--secondary);
-  }
-  .border-secondary {
-    border-color: var(--secondary);
-  }
-
-  /* Background and Surface Classes */
-  .bg-background {
-    background-color: var(--background);
-  }
-  .text-surface {
-    color: var(--on-surface);
-  }
-  .text-surface-variant {
-    color: var(--on-surface-variant);
-  }
+  --surface-container: #1e2024;
+  --outline: #584238;
+  --surface-bright: #1a1a1a;
+  --on-primary: #562000;
 }

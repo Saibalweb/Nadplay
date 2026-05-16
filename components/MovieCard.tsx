@@ -71,7 +71,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
         ) : null}
       </View>
       <View className="mt-2 px-1">
-        <Text className="text-[#e2e2e8] font-semibold text-base" numberOfLines={1}>
+        <Text className="text-surface font-semibold text-base" numberOfLines={1}>
           {title}
         </Text>
         {year && (

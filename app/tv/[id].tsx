@@ -91,7 +91,7 @@ export default function TvDetailScreen() {
   if (!tvDetails) return null;
 
   return (
-    <SafeAreaView className="flex-1 bg-[#1a1a1a]">
+    <SafeAreaView className="flex-1 bg-surface-bright">
       <View className="flex-row items-center justify-between px-4 py-3 absolute top-10 w-full z-10">
         <TouchableOpacity onPress={() => router.back()}>
           <ChevronLeftIcon size={35} color="white" />
@@ -108,7 +108,7 @@ export default function TvDetailScreen() {
             className="w-full h-full"
             resizeMode="cover"
           />
-          <View className="absolute bottom-0 w-full h-1/2 bg-[#1a1a1a]/50" />
+          <View className="absolute bottom-0 w-full h-1/2 bg-surface-bright/50" />
 
           <View className="absolute top-60 left-4 flex-row items-end">
             <Image
@@ -132,14 +132,14 @@ export default function TvDetailScreen() {
         <View className="px-4 mt-32">
           <View className="flex-row items-center flex-wrap">
             <View className="flex-row items-center mr-4 mb-2">
-              <CalendarIcon size={16} color="#666" />
+              <CalendarIcon size={16} color="var(--on-surface-variant)" />
               <Text className="text-gray-400 ml-1">{tvDetails.first_air_date}</Text>
             </View>
             <View className="flex-row items-center mr-4 mb-2">
               <Text className="text-gray-400">{`${tvDetails.number_of_seasons} Seasons`}</Text>
             </View>
             <View className="flex-row items-center mr-4 mb-2">
-              <TagIcon size={16} color="#666" />
+              <TagIcon size={16} color="var(--on-surface-variant)" />
               <Text className="text-gray-400 ml-1">{tvDetails.genres[0]?.name}</Text>
             </View>
           </View>

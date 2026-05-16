@@ -63,7 +63,7 @@ export default function CastScreen() {
   );
 
   return (
-    <SafeAreaView className="flex-1 bg-[#1a1a1a]">
+    <SafeAreaView className="flex-1 bg-surface-bright">
       {/* Header */}
       <View className="flex-row items-center px-4 py-3">
         <TouchableOpacity onPress={() => router.back()} className="mr-4">

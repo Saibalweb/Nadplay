@@ -68,7 +68,7 @@ export default function Movie() {
     if (!loading) return null;
     return (
       <View className="items-center justify-center my-4">
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color="var(--primary)" />
       </View>
     );
   };
@@ -82,7 +82,7 @@ export default function Movie() {
   };
 
   return (
-    <View className="flex-1 bg-[#121212] px-4 py-4 pt-12">
+    <View className="flex-1 bg-background px-4 py-4 pt-12">
       {/* Header */}
       <Text className="text-white text-3xl font-semibold my-4 mx-2">
         Find Movies, Tv series,{"\n"}and more..
@@ -98,7 +98,7 @@ export default function Movie() {
           >
             <Text className="text-white text-xl">{category}</Text>
             {activeCategory === category && (
-              <View className="h-0.5 bg-red-500 mt-1" />
+              <View className="h-0.5 bg-primary mt-1" />
             )}
           </TouchableOpacity>
         ))}

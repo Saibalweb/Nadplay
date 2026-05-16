@@ -90,27 +90,27 @@ const SearchScreen = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-[#111318]">
+    <SafeAreaView className="flex-1 bg-background">
       <ScrollView className="flex-1 px-4" showsVerticalScrollIndicator={false}>
         {/* Header & Search Bar */}
         <View className="mt-6 mb-8">
-          <Text className="text-3xl font-bold text-[#e2e2e8] mb-6">Search</Text>
-          <View className="flex-row items-center bg-[#1e2024] rounded-2xl px-4 py-3 border border-[#584238]/10">
-            <MagnifyingGlassIcon size={24} color="#ffb692" />
+          <Text className="text-3xl font-bold text-surface mb-6">Search</Text>
+          <View className="flex-row items-center bg-surface-container rounded-2xl px-4 py-3 border border-outline/10">
+            <MagnifyingGlassIcon size={24} color="var(--primary)" />
             <TextInput
               value={searchQuery}
               onChangeText={handleSearch}
               placeholder="Movies, actors, genres..."
-              placeholderTextColor="#dfc0b3"
-              className="flex-1 ml-3 text-[#e2e2e8] text-lg font-medium"
+              placeholderTextColor="var(--on-surface-variant)"
+              className="flex-1 ml-3 text-surface text-lg font-medium"
             />
             {searchQuery.length > 0 ? (
               <TouchableOpacity onPress={() => handleSearch('')}>
-                <XMarkIcon size={24} color="#dfc0b3" />
+                <XMarkIcon size={24} color="var(--on-surface-variant)" />
               </TouchableOpacity>
             ) : (
               <TouchableOpacity>
-                <MicrophoneIcon size={24} color="#dfc0b3" />
+                <MicrophoneIcon size={24} color="var(--on-surface-variant)" />
               </TouchableOpacity>
             )}
           </View>
@@ -119,9 +119,9 @@ const SearchScreen = () => {
         {searchQuery.length > 2 ? (
           /* Search Results */
           <View className="mb-8">
-            <Text className="text-xl font-semibold text-[#e2e2e8] mb-4">Results</Text>
+            <Text className="text-xl font-semibold text-surface mb-4">Results</Text>
             {searching ? (
-              <ActivityIndicator color="#ffb692" size="large" />
+              <ActivityIndicator color="var(--primary)" size="large" />
             ) : (
               <View className="flex-row flex-wrap justify-between">
                 {searchResults.map((item) => (
@@ -136,7 +136,7 @@ const SearchScreen = () => {
               </View>
             )}
             {!searching && searchResults.length === 0 && (
-              <Text className="text-[#dfc0b3] text-center mt-10">No results found for "{searchQuery}"</Text>
+              <Text className="text-surface-variant text-center mt-10">No results found for "{searchQuery}"</Text>
             )}
           </View>
         ) : (
@@ -145,17 +145,17 @@ const SearchScreen = () => {
             {/* Recent Searches */}
             <View className="mb-8">
               <View className="flex-row justify-between items-center mb-4">
-                <Text className="text-xl font-semibold text-[#e2e2e8]">Recent Searches</Text>
+                <Text className="text-xl font-semibold text-surface">Recent Searches</Text>
                 <TouchableOpacity>
-                  <Text className="text-[#ffb692] text-sm">Clear All</Text>
+                  <Text className="text-primary text-sm">Clear All</Text>
                 </TouchableOpacity>
               </View>
               <View className="flex-row flex-wrap gap-2">
                 {recentSearches.map((item, index) => (
                   <TouchableOpacity key={index} onPress={() => handleSearch(item)}>
-                    <View className="flex-row items-center bg-[#1e2024] px-4 py-2 rounded-full border border-[#584238]/20">
-                      <Text className="text-[#dfc0b3] mr-2">{item}</Text>
-                      <XMarkIcon size={16} color="#dfc0b3" />
+                    <View className="flex-row items-center bg-surface-container px-4 py-2 rounded-full border border-outline/20">
+                      <Text className="text-surface-variant mr-2">{item}</Text>
+                      <XMarkIcon size={16} color="var(--on-surface-variant)" />
                     </View>
                   </TouchableOpacity>
                 ))}
@@ -164,9 +164,9 @@ const SearchScreen = () => {
 
             {/* Trending Now (Dynamic) */}
             <View className="mb-8">
-              <Text className="text-xl font-semibold text-[#e2e2e8] mb-4">Trending Now</Text>
+              <Text className="text-xl font-semibold text-surface mb-4">Trending Now</Text>
               {loading ? (
-                <ActivityIndicator color="#ffb692" />
+                <ActivityIndicator color="var(--primary)" />
               ) : (
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-row">
                   {trendingMovies.map((item,index) => {
@@ -187,7 +187,7 @@ const SearchScreen = () => {
 
             {/* Explore by Genre */}
             <View className="mb-8">
-              <Text className="text-xl font-semibold text-[#e2e2e8] mb-4">Explore by Genre</Text>
+              <Text className="text-xl font-semibold text-surface mb-4">Explore by Genre</Text>
               <View className="flex-row flex-wrap gap-3">
                 {genres.map((genre, index) => (
                   <TouchableOpacity
@@ -206,15 +206,15 @@ const SearchScreen = () => {
 
             {/* Explore by Language */}
             <View className="mb-12">
-              <Text className="text-xl font-semibold text-[#e2e2e8] mb-4">Explore by Language</Text>
+              <Text className="text-xl font-semibold text-surface mb-4">Explore by Language</Text>
               <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-row">
                 {languages.map((lang, index) => (
                   <TouchableOpacity
                     key={index}
-                    className="bg-[#1e2024] px-8 py-4 rounded-2xl mr-3 border border-[#584238]/10"
+                    className="bg-surface-container px-8 py-4 rounded-2xl mr-3 border border-outline/10"
                     onPress={() => router.push(`/explore/language/${lang.code}?title=${lang.name}`)}
                   >
-                    <Text className="text-[#e2e2e8] font-medium">{lang.name}</Text>
+                    <Text className="text-surface font-medium">{lang.name}</Text>
                   </TouchableOpacity>
                 ))}
               </ScrollView>

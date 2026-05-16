@@ -19,7 +19,7 @@ const Onboarding = () => {
         className="w-full h-full justify-end"
       >
         <LinearGradient
-          colors={['transparent', 'rgba(17, 19, 24, 0.8)', '#111318']}
+          colors={['transparent', 'rgba(17, 19, 24, 0.8)', 'var(--background)']}
           className="h-[60%] justify-end px-[30px] pb-[60px]"
         >
           <View className="items-start">
@@ -36,7 +36,7 @@ const Onboarding = () => {
             <TouchableOpacity
               className="w-full rounded-[30px] overflow-hidden elevation-10"
               style={{
-                shadowColor: '#ffb692',
+                shadowColor: 'var(--primary)',
                 shadowOffset: { width: 0, height: 10 },
                 shadowOpacity: 0.3,
                 shadowRadius: 20,
@@ -45,12 +45,12 @@ const Onboarding = () => {
               activeOpacity={0.8}
             >
               <LinearGradient
-                colors={['#ffb692', '#ff7d33']}
+                colors={['var(--primary)', 'var(--primary-container)']}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 0 }}
                 className="py-[18px] items-center justify-center"
               >
-                <Text className="text-[#562000] text-[18px] font-bold">Get Started</Text>
+                <Text className="text-on-primary text-[18px] font-bold">Get Started</Text>
               </LinearGradient>
             </TouchableOpacity>
           </View>

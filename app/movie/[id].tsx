@@ -119,7 +119,7 @@ export default function MovieDetailScreen({ navigation }) {
     setBookmark(isBookmarked);
   }, [watchlist, id]);
   return (
-    <SafeAreaView className="flex-1 bg-[#1a1a1a] p-2">
+    <SafeAreaView className="flex-1 bg-surface-bright p-2">
       {/* Header */}
       <View className="flex-row items-center justify-between px-4 py-3 absolute top-10 w-full z-10">
         <TouchableOpacity onPress={() => router.back()}>
@@ -137,7 +137,7 @@ export default function MovieDetailScreen({ navigation }) {
             className="w-full h-full"
             resizeMode="cover"
           />
-          <View className="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-[#1a1a1a] to-transparent" />
+          <View className="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-surface-bright to-transparent" />
 
           <View className="absolute top-60 left-4 flex-row items-end">
             <Image
@@ -161,15 +161,15 @@ export default function MovieDetailScreen({ navigation }) {
         <View className="px-4 mt-32">
           <View className="flex-row items-center space-x-4">
             <View className="flex-row items-center mx-1">
-              <CalendarIcon size={16} color="#666" />
+              <CalendarIcon size={16} color="var(--on-surface-variant)" />
               <Text className="text-gray-400 ml-1">{movieDetails?.release_date}</Text>
             </View>
             <View className="flex-row items-center mx-1">
-              <ClockIcon size={16} color="#666" />
+              <ClockIcon size={16} color="var(--on-surface-variant)" />
               <Text className="text-gray-400 ml-1"> {`${movieDetails.runtime} Minutes`}</Text>
             </View>
             <View className="flex-row items-center mx-1">
-              <TagIcon size={16} color="#666" />
+              <TagIcon size={16} color="var(--on-surface-variant)" />
               <Text className="text-gray-400 ml-1">{movieDetails?.genres[0]?.name}</Text>
             </View>
           </View>

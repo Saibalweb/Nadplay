@@ -73,7 +73,7 @@ export default function PersonDetailsScreen() {
 
   if (loading) {
     return (
-      <View className="flex-1 bg-[#1a1a1a] justify-center items-center">
+      <View className="flex-1 bg-surface-bright justify-center items-center">
         <Text className="text-white text-lg">Loading...</Text>
       </View>
     );
@@ -81,7 +81,7 @@ export default function PersonDetailsScreen() {
 
   if (!person) {
     return (
-      <View className="flex-1 bg-[#1a1a1a] justify-center items-center">
+      <View className="flex-1 bg-surface-bright justify-center items-center">
         <Text className="text-white text-lg">Person not found</Text>
         <TouchableOpacity
           onPress={() => router.back()}
@@ -94,7 +94,7 @@ export default function PersonDetailsScreen() {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-[#1a1a1a]">
+    <SafeAreaView className="flex-1 bg-surface-bright">
       {/* Header */}
       <View className="flex-row items-center px-4 py-3 z-10">
         <TouchableOpacity

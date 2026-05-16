@@ -51,20 +51,20 @@ const ExploreResultsScreen = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-[#111318]">
+    <SafeAreaView className="flex-1 bg-background">
       {/* Header */}
-      <View className="flex-row items-center px-4 py-4 border-b border-[#584238]/10">
+      <View className="flex-row items-center px-4 py-4 border-b border-outline/10">
         <TouchableOpacity 
           onPress={() => router.back()}
-          className="p-2 bg-[#1e2024] rounded-xl"
+          className="p-2 bg-surface-container rounded-xl"
         >
-          <ChevronLeftIcon size={24} color="#ffb692" />
+          <ChevronLeftIcon size={24} color="var(--primary)" />
         </TouchableOpacity>
         <View className="ml-4">
-          <Text className="text-xl font-bold text-[#e2e2e8]">
+          <Text className="text-xl font-bold text-surface">
             {title || 'Explore'}
           </Text>
-          <Text className="text-xs text-[#dfc0b3] uppercase tracking-widest">
+          <Text className="text-xs text-surface-variant uppercase tracking-widest">
             {type === 'genre' ? 'Genre' : 'Language'}
           </Text>
         </View>
@@ -72,7 +72,7 @@ const ExploreResultsScreen = () => {
 
       {loading ? (
         <View className="flex-1 justify-center items-center">
-          <ActivityIndicator size="large" color="#ffb692" />
+          <ActivityIndicator size="large" color="var(--primary)" />
         </View>
       ) : (
         <ScrollView 
@@ -94,7 +94,7 @@ const ExploreResultsScreen = () => {
           
           {movies.length === 0 && (
             <View className="items-center mt-20">
-              <Text className="text-[#dfc0b3] text-lg">No movies found</Text>
+              <Text className="text-surface-variant text-lg">No movies found</Text>
             </View>
           )}
         </ScrollView>
