@@ -31,7 +31,6 @@ export default function WatchListScreen() {
 
   return (
     <SafeAreaView className="bg-surface-bright flex-1">
-      {/* Header */}
       <View className="flex-row items-center px-4 py-3 mt-10">
         <TouchableOpacity className="mr-4" onPress={() => router.back()}>
           <ChevronLeftIcon size={24} color="white" />
