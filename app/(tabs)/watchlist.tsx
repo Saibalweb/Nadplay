@@ -38,7 +38,6 @@ export default function WatchListScreen() {
         <Text className="text-white text-2xl font-bold">Watch list</Text>
       </View>
 
-      {/* Movie Grid */}
       <FlatList
         data={watchlist}
         renderItem={renderItem}

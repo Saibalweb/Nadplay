@@ -56,7 +56,7 @@ export default function Movie() {
     return (
       <MovieCard
         item={item}
-        width={(SCREEN_WIDTH - 48) / 2} // Account for padding and gap
+        width={(SCREEN_WIDTH - 48) / 2} 
         height={240}
         containerClass="mb-4 mx-2"
         type={activeCategory === "Movies" ? "movie" : "tv"}
