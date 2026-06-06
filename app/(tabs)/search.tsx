@@ -117,7 +117,6 @@ const SearchScreen = () => {
         </View>
 
         {searchQuery.length > 2 ? (
-          /* Search Results */
           <View className="mb-8">
             <Text className="text-xl font-semibold text-surface mb-4">Results</Text>
             {searching ? (
