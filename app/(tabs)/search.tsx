@@ -139,9 +139,7 @@ const SearchScreen = () => {
             )}
           </View>
         ) : (
-          /* Default Content */
           <>
-            {/* Recent Searches */}
             <View className="mb-8">
               <View className="flex-row justify-between items-center mb-4">
                 <Text className="text-xl font-semibold text-surface">Recent Searches</Text>
