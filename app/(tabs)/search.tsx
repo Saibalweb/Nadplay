@@ -95,22 +95,22 @@ const SearchScreen = () => {
         {/* Header & Search Bar */}
         <View className="mt-6 mb-8">
           <Text className="text-3xl font-bold text-surface mb-6">Search</Text>
-          <View className="flex-row items-center bg-surface-container rounded-2xl px-4 py-3 border border-outline/10">
-            <MagnifyingGlassIcon size={24} color="var(--primary)" />
+          <View className="flex-row items-center bg-white rounded-2xl px-4 py-3 border border-outline/10">
+            <MagnifyingGlassIcon size={24} color="black" />
             <TextInput
               value={searchQuery}
               onChangeText={handleSearch}
               placeholder="Movies, actors, genres..."
-              placeholderTextColor="var(--on-surface-variant)"
+              placeholderTextColor="black"
               className="flex-1 ml-3 text-surface text-lg font-medium"
             />
             {searchQuery.length > 0 ? (
               <TouchableOpacity onPress={() => handleSearch('')}>
-                <XMarkIcon size={24} color="var(--on-surface-variant)" />
+                <XMarkIcon size={24} color="black" />
               </TouchableOpacity>
             ) : (
               <TouchableOpacity>
-                <MicrophoneIcon size={24} color="var(--on-surface-variant)" />
+                <MicrophoneIcon size={24} color="black" />
               </TouchableOpacity>
             )}
           </View>
@@ -150,9 +150,9 @@ const SearchScreen = () => {
               <View className="flex-row flex-wrap gap-2">
                 {recentSearches.map((item, index) => (
                   <TouchableOpacity key={index} onPress={() => handleSearch(item)}>
-                    <View className="flex-row items-center bg-surface-container px-4 py-2 rounded-full border border-outline/20">
-                      <Text className="text-surface-variant mr-2">{item}</Text>
-                      <XMarkIcon size={16} color="var(--on-surface-variant)" />
+                    <View className="flex-row items-center bg-white px-4 py-2 rounded-full border border-outline/20 items-center justify-center ">
+                      <Text className="text-black mr-2">{item}</Text>
+                      <XMarkIcon size={16} color="black" />
                     </View>
                   </TouchableOpacity>
                 ))}
