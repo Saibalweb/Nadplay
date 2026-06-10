@@ -159,7 +159,6 @@ const SearchScreen = () => {
               </View>
             </View>
 
-            {/* Trending Now (Dynamic) */}
             <View className="mb-8">
               <Text className="text-xl font-semibold text-surface mb-4">Trending Now</Text>
               {loading ? (
