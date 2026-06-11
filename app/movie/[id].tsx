@@ -114,7 +114,6 @@ export default function MovieDetailScreen({ navigation }) {
     fetchMovieCredits();
   }, []);
   useEffect(() => {
-    // Check if the movie is already in the watchlist
     const isBookmarked = watchlist.some((movie) => movie.id == Number(id));
     setBookmark(isBookmarked);
   }, [watchlist, id]);
