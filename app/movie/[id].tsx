@@ -119,7 +119,6 @@ export default function MovieDetailScreen({ navigation }) {
   }, [watchlist, id]);
   return (
     <SafeAreaView className="flex-1 bg-surface-bright p-2">
-      {/* Header */}
       <View className="flex-row items-center justify-between px-4 py-3 absolute top-10 w-full z-10">
         <TouchableOpacity onPress={() => router.back()}>
           <ChevronLeftIcon size={35} color="white" />
