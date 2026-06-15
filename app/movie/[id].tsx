@@ -8,7 +8,7 @@ import {
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import { TagIcon, CalendarIcon } from "react-native-heroicons/outline";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { router, useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { getRequest } from "@/hooks/reqBuilder";
 import { useDispatch, useSelector } from "react-redux";
 import { addMovieToWatchlist, removeMovieFromWatchlist, RootState } from "@/store";
