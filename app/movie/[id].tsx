@@ -155,7 +155,6 @@ export default function MovieDetailScreen({ navigation }) {
           </View>
         </View>
 
-        {/* Movie Info */}
         <View className="px-4 mt-32">
           <View className="flex-row items-center space-x-4">
             <View className="flex-row items-center mx-1">
