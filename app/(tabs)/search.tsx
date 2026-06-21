@@ -22,8 +22,6 @@ import {
   API_IMAGE_URL,
   searchMoviesUrl,
   fetchTrendingUrl,
-  fetchGenreListUrl,
-  fetchMoviesByLanguageUrl,
 } from '../../constants/api';
 import MovieCard from '@/components/MovieCard';
 
