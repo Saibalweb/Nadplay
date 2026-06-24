@@ -90,7 +90,6 @@ const SearchScreen = () => {
   return (
     <SafeAreaView className="flex-1 bg-background">
       <ScrollView className="flex-1 px-4" showsVerticalScrollIndicator={false}>
-        {/* Header & Search Bar */}
         <View className="mt-6 mb-8">
           <Text className="text-3xl font-bold text-surface mb-6">Search</Text>
           <View className="flex-row items-center bg-white rounded-2xl px-4 py-3 border border-outline/10">
